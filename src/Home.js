@@ -4,7 +4,7 @@ import React from "react";
 // http://localhost:3000/redirect/exchange_token?state=&code=156062db6648cfc82c9dfb310ec38aa7ede05669&scope=read
 
 export default function Home () {
-  const clientID = '102662';
+  const clientID = `${process.env.REACT_APP_CLIENT_ID}`;
   const redirectUrl = "http://localhost:3000/redirect";
   const scope = "read";
 
