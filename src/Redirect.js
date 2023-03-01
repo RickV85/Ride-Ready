@@ -1,14 +1,9 @@
 import React, { useEffect, useState } from "react";
 
-// URL received after user auth accepted:
-// http://localhost:3000/redirect/exchange_token?state=&code=156062db6648cfc82c9dfb310ec38aa7ede05669&scope=read
-
-
 export default function Redirect() {
   const [userAuthToken, setUserAuthToken] = useState('');
   const [userAccessToken, setUserAccessToken] = useState('');
-  // eslint-disable-next-line
-  const [userRefreshToken, setUserRefreshToken] = useState('');
+  const [userRides, setUserRides] = useState([]);
   const [permissionError, setPermissionError] = useState('');
 
   const stripURLForToken = (url) => {
@@ -58,6 +53,25 @@ export default function Redirect() {
       console.log(error)
     })
   }
+  
+  // "https://www.strava.com/api/v3/gear/{id}" "Authorization: Bearer [[token]]"
+  const getUserGear = (id) => {
+    return fetch(`https://www.strava.com/api/v3/gear/${id}`, {
+      headers: {
+        Authorization: `Bearer ${userAccessToken}`
+      }
+    })
+    .then((response) => {
+      if (response.ok) {
+        return response.json();
+      }
+      throw new Error();
+    }
+    ).catch((error) => {
+      console.log(error)
+    })
+  }
+
 
 
   useEffect(() => {
@@ -74,7 +88,6 @@ export default function Redirect() {
     getAccessToken(userAuthToken)
     .then((data) => {
       setUserAccessToken(data.access_token);
-      setUserRefreshToken(data.refresh_token);
       console.log(data)
     })
     // eslint-disable-next-line
@@ -84,7 +97,7 @@ export default function Redirect() {
     if (!userAccessToken) return;
     getUserActivities()
     .then((data) => {
-      console.log(data)
+      setUserRides([...userRides, data]);
     })
     // eslint-disable-next-line
   }, [userAccessToken])
