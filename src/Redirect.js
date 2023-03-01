@@ -137,6 +137,7 @@ export default function Redirect() {
       })
     })
     setUserGearDetails(fetchedGearDetail)
+    // eslint-disable-next-line
   }, [userGear])
 
   return (
