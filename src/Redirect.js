@@ -6,8 +6,8 @@ import React, { useEffect, useState } from "react";
 
 export default function Redirect() {
   const [userAuthToken, setUserAuthToken] = useState(null);
-  const [authResponse, setAuthResponse] = useState(null);
   const [userAccessToken, setUserAccessToken] = useState(null);
+  // eslint-disable-next-line
   const [userRefreshToken, setUserRefreshToken] = useState(null);
 
   const stripURLForToken = (url) => {
@@ -33,6 +33,24 @@ export default function Redirect() {
     ))
   }
 
+  const getUserActivities = () => {
+    const pageParam = 1;
+    return fetch(`https://www.strava.com/api/v3/athlete/activities?page=${pageParam}&per_page=200`, {
+      headers: {
+        Authorization: `Bearer ${userAccessToken}`
+      }
+    })
+    .then((response) => {
+      if (response.ok) {
+        return response.json();
+      }
+      throw new Error();
+    }
+    ).catch((error) => {
+      console.log(error)
+    })
+  }
+
 
   useEffect(() => {
     // Add conditional in case user does not authorize or it fails
@@ -53,7 +71,13 @@ export default function Redirect() {
     // eslint-disable-next-line
   }, [userAuthToken])
 
-
+  useEffect(() => {
+    getUserActivities()
+    .then((data) => {
+      console.log(data)
+    })
+    // eslint-disable-next-line
+  }, [userAccessToken])
 
   return (
     <p>Fetching your data</p>
