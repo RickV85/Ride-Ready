@@ -5,14 +5,22 @@ import React, { useEffect, useState } from "react";
 
 
 export default function Redirect() {
-  const [userAuthToken, setUserAuthToken] = useState(null);
-  const [userAccessToken, setUserAccessToken] = useState(null);
+  const [userAuthToken, setUserAuthToken] = useState('');
+  const [userAccessToken, setUserAccessToken] = useState('');
   // eslint-disable-next-line
-  const [userRefreshToken, setUserRefreshToken] = useState(null);
+  const [userRefreshToken, setUserRefreshToken] = useState('');
+  const [permissionError, setPermissionError] = useState('');
 
   const stripURLForToken = (url) => {
     return url.split("&")[1].slice(5);
   };
+
+  const testForDeniedPermission = (url) => {
+    if (url.split("&")[1] === 'error=access_denied') {
+      setPermissionError(<p>Please allow this app access to all activity data on Strava's login screen</p>)
+      return;
+    }
+  }; 
 
   const getAccessToken = () => {
     return fetch(`https://www.strava.com/oauth/token`, {
@@ -56,6 +64,7 @@ export default function Redirect() {
     // Add conditional in case user does not authorize or it fails
     // to navigate them to an error page or home
     // If access is denied, error=access_denied will be included in the query string
+    testForDeniedPermission(window.location.search)
     const fetchedAuthToken = stripURLForToken(window.location.search);
     setUserAuthToken(fetchedAuthToken)
   }, [])
@@ -68,7 +77,6 @@ export default function Redirect() {
       setUserRefreshToken(data.refresh_token);
       console.log(data)
     })
-    // need response.access_token and response.refresh_token
     // eslint-disable-next-line
   }, [userAuthToken])
 
@@ -82,6 +90,8 @@ export default function Redirect() {
   }, [userAccessToken])
 
   return (
-    <p>Fetching your data</p>
+    <div>
+      {<p>Fetching your data</p> && permissionError}
+    </div>
   )
 }
