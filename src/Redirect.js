@@ -4,6 +4,8 @@ export default function Redirect() {
   const [userAuthToken, setUserAuthToken] = useState('');
   const [userAccessToken, setUserAccessToken] = useState('');
   const [userRides, setUserRides] = useState([]);
+  const [userGear, setUserGear] = useState([]);
+  const [userGearDetails, setUserGearDetails] = useState([])
   const [permissionError, setPermissionError] = useState('');
 
   const stripURLForToken = (url) => {
@@ -16,6 +18,24 @@ export default function Redirect() {
       return;
     }
   }; 
+
+  const filterRideActivities = (activities) => {
+    const rideActivities = activities.filter((act) => act.type === 'Ride')
+    return rideActivities;
+  }
+
+  const getGearIDNumbers = () => {
+    const gearNumbers = userRides.reduce((arr, ride) => {
+      let gearID = ride.gear_id;
+      if (arr.includes(gearID)) {
+        return arr;
+      } else {
+        arr.push(gearID)
+        return arr;
+      }
+    }, [])
+    setUserGear(gearNumbers)
+  }
 
   const getAccessToken = () => {
     return fetch(`https://www.strava.com/oauth/token`, {
@@ -36,9 +56,8 @@ export default function Redirect() {
     ))
   }
 
-  const getUserActivities = () => {
-    const pageParam = 1;
-    return fetch(`https://www.strava.com/api/v3/athlete/activities?page=${pageParam}&per_page=200`, {
+  const getUserActivities = (pageNum) => {
+    return fetch(`https://www.strava.com/api/v3/athlete/activities?page=${pageNum}&per_page=200`, {
       headers: {
         Authorization: `Bearer ${userAccessToken}`
       }
@@ -55,7 +74,7 @@ export default function Redirect() {
   }
   
   // "https://www.strava.com/api/v3/gear/{id}" "Authorization: Bearer [[token]]"
-  const getUserGear = (id) => {
+  const getUserGearDetails = (id) => {
     return fetch(`https://www.strava.com/api/v3/gear/${id}`, {
       headers: {
         Authorization: `Bearer ${userAccessToken}`
@@ -88,23 +107,42 @@ export default function Redirect() {
     getAccessToken(userAuthToken)
     .then((data) => {
       setUserAccessToken(data.access_token);
-      console.log(data)
     })
     // eslint-disable-next-line
   }, [userAuthToken])
 
   useEffect(() => {
     if (!userAccessToken) return;
-    getUserActivities()
-    .then((data) => {
-      setUserRides([...userRides, data]);
+    getUserActivities(1)
+    .then((activities) => {
+      const rideActivities = filterRideActivities(activities);
+      setUserRides(rideActivities);
     })
     // eslint-disable-next-line
   }, [userAccessToken])
 
+  useEffect(() => {
+    if (!userRides) return;
+    getGearIDNumbers();
+    // eslint-disable-next-line
+  }, [userRides])
+
+  useEffect(() => {
+    if (!userGear) return;
+    let fetchedGearDetail = [];
+    userGear.forEach((gearID) => {
+      getUserGearDetails(gearID)
+      .then((details) => {
+        fetchedGearDetail.push(details)
+      })
+    })
+    setUserGearDetails(fetchedGearDetail)
+  }, [userGear])
+
   return (
     <div>
-      {<p>Fetching your data</p> && permissionError}
+      <p>Fetching your data</p>
+      {permissionError}
     </div>
   )
 }
