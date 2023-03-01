@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import './Redirect.css';
 
 export default function Redirect() {
@@ -7,19 +8,20 @@ export default function Redirect() {
   const [userRides, setUserRides] = useState([]);
   const [userGear, setUserGear] = useState([]);
   const [userGearDetails, setUserGearDetails] = useState([])
-  const [permissionError, setPermissionError] = useState('');
-
-  const stripURLForToken = (url) => {
-    return url.split("&")[1].slice(5);
-  };
+  const navigate = useNavigate();
 
   const testForDeniedPermission = (url) => {
     if (url.split("&")[1] === 'error=access_denied') {
-      setPermissionError(<p>Please allow this app access to all activity data on Strava's login screen</p>)
-      return;
+      navigate('/error', { replace: true, state: { message: `Please allow this app access to all activity data on Strava's login screen. You are being redirected to the home page.` }});
+      return true;
     }
   }; 
 
+  const stripURLForToken = (url) => {
+    if(!url) return;
+    return url.split("&")[1].slice(5);
+  };
+  
   const filterRideActivities = (activities) => {
     const rideActivities = activities.filter((act) => act.type === 'Ride')
     return rideActivities;
@@ -98,9 +100,10 @@ export default function Redirect() {
     // Add conditional in case user does not authorize or it fails
     // to navigate them to an error page or home
     // If access is denied, error=access_denied will be included in the query string
-    testForDeniedPermission(window.location.search)
+    if (testForDeniedPermission(window.location.search)) return;
     const fetchedAuthToken = stripURLForToken(window.location.search);
     setUserAuthToken(fetchedAuthToken)
+    // eslint-disable-next-line
   }, [])
 
   useEffect(() => {
@@ -141,12 +144,17 @@ export default function Redirect() {
     // eslint-disable-next-line
   }, [userGear])
 
+  // useEffect(() => {
+  //   if (error) {
+  //     navigate('/error', { replace: true, state: { message: error }})
+  //   }
+  // }, [error])
+
   return (
     <section className="home-page">
       <h1 className="site-logo">Ride Ready</h1>
-      <iframe className="loading-gif" title="mountain biking gif" src="https://giphy.com/embed/hWAoUDztX8kGVLvecs" frameBorder="0" class="giphy-embed"></iframe>
+      <iframe className="loading-gif" title="mountain biking gif" src="https://giphy.com/embed/hWAoUDztX8kGVLvecs" frameBorder="0"></iframe>
       <p className="loading-message">Please wait while your data loads.<br/>This could take xxx to xxx seconds.</p>
-      {permissionError}
     </section>
   )
 }

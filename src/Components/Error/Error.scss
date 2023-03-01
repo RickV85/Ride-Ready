@@ -1,0 +1,13 @@
+@use '../../../abstract/variables' as *;
+
+.error-message {
+  color: $darkOrange;
+  font-weight: 600;
+  font-size: 20px;
+  width: 80vw;
+  margin: 15px;
+}
+
+.error-gif {
+  height: 60vmin;
+}
