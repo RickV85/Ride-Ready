@@ -61,6 +61,7 @@ export default function Redirect() {
   }, [])
 
   useEffect(() => {
+    if (!userAuthToken) return;
     getAccessToken(userAuthToken)
     .then((data) => {
       setUserAccessToken(data.access_token);
@@ -72,6 +73,7 @@ export default function Redirect() {
   }, [userAuthToken])
 
   useEffect(() => {
+    if (!userAccessToken) return;
     getUserActivities()
     .then((data) => {
       console.log(data)
