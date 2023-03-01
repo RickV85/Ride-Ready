@@ -1,1 +1,30 @@
 @use '../../../abstract/variables' as *;
+
+.app-background {
+  background-color: $darkBlue;
+  height: 100vh;
+  width: 100vw;
+}
+
+h1 {
+  @include bodyText(22px)
+}
+
+h2 {
+  @include bodyText(18px)
+}
+
+p {
+  @include bodyText(16px)
+}
+
+button {
+  background-color: $medBlue;
+  color: $lightOrange;
+  box-shadow: 0px 0px 0px 2px $lightOrange;
+  border-radius: 10px;
+  border: none;
+  padding: 10px;
+  margin: 4vmin;
+  font-family: $mainFont;
+}

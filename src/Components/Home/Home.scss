@@ -1,1 +1,16 @@
 @use '../../../abstract/variables' as *;
+
+.site-logo {
+  @include logoText;
+  font-size: 8vh;
+}
+
+.home-page{
+  @include centered(column, center);
+  height: 100vh;
+  width: 100vw;
+}
+
+.tag-line {
+  color: $lightBlue;
+}

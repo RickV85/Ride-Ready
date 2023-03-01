@@ -7,7 +7,7 @@ import Redirect from '../Redirect/Redirect';
 
 function App() {
   return (
-    <main>
+    <main className='app-background'>
     <Routes >
       <Route path='/' element={ <Home /> } />
       <Route path='/redirect/*' element={ <Redirect /> } />

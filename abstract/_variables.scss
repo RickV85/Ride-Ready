@@ -16,11 +16,12 @@ $mainFont: 'Kalam', cursive;
 @mixin logoText {
   color: $lightOrange;
   font-family: $logoFont;
+  text-shadow: 4px 4px 5px #00000075;
 }
 
-@mixin bodyText {
+@mixin bodyText($size) {
   color: $darkBlue;
   font-family: $mainFont;
-  font-size: 16px;
+  font-size: $size;
   font-weight: 400;
 }

@@ -1,0 +1,19 @@
+.site-logo {
+  color: #F6AE2D;
+  font-family: "Permanent Marker", cursive;
+  text-shadow: 4px 4px 5px rgba(0, 0, 0, 0.4588235294);
+  font-size: 8vh;
+}
+
+.home-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+}
+
+.tag-line {
+  color: #86BBD8;
+}/*# sourceMappingURL=Home.css.map */
