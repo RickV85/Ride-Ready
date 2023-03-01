@@ -1,0 +1,27 @@
+$darkBlue: #2F4858;
+$medBlue: #33658A;
+$lightBlue: #86BBD8;
+$lightOrange: #F6AE2D;
+$darkOrange: #F26419;
+$logoFont: 'Permanent Marker', cursive;
+$mainFont: 'Kalam', cursive;
+
+@mixin centered($direction, $justifyContent) {
+  display: flex;
+  flex-direction: $direction;
+  justify-content: $justifyContent;
+  align-items: center;
+}
+
+@mixin logoText {
+  color: $lightOrange;
+  font-family: $logoFont;
+  text-shadow: 4px 4px 5px #00000075;
+}
+
+@mixin bodyText($size) {
+  color: $darkBlue;
+  font-family: $mainFont;
+  font-size: $size;
+  font-weight: 400;
+}
