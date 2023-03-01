@@ -7,15 +7,18 @@
 }
 
 h1 {
-  @include bodyText(22px)
+  @include bodyText(22px);
+  text-align: center;
 }
 
 h2 {
-  @include bodyText(18px)
+  @include bodyText(18px);
+  text-align: center;
 }
 
 p {
-  @include bodyText(16px)
+  @include bodyText(16px);
+  text-align: center;
 }
 
 button {
@@ -27,4 +30,9 @@ button {
   padding: 10px;
   margin: 4vmin;
   font-family: $mainFont;
+  cursor: pointer
+}
+
+button:hover {
+  box-shadow: 0px 0px 0px 2px $darkOrange;
 }

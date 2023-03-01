@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import './Redirect.css';
 
 export default function Redirect() {
   const [userAuthToken, setUserAuthToken] = useState('');
@@ -141,9 +142,11 @@ export default function Redirect() {
   }, [userGear])
 
   return (
-    <div>
-      <p>Fetching your data</p>
+    <section className="home-page">
+      <h1 className="site-logo">Ride Ready</h1>
+      <iframe className="loading-gif" title="mountain biking gif" src="https://giphy.com/embed/hWAoUDztX8kGVLvecs" frameBorder="0" class="giphy-embed"></iframe>
+      <p className="loading-message">Please wait while your data loads.<br/>This could take xxx to xxx seconds.</p>
       {permissionError}
-    </div>
+    </section>
   )
 }

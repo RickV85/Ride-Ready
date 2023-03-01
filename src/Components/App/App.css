@@ -9,6 +9,7 @@ h1 {
   font-family: "Kalam", cursive;
   font-size: 22px;
   font-weight: 400;
+  text-align: center;
 }
 
 h2 {
@@ -16,6 +17,7 @@ h2 {
   font-family: "Kalam", cursive;
   font-size: 18px;
   font-weight: 400;
+  text-align: center;
 }
 
 p {
@@ -23,6 +25,7 @@ p {
   font-family: "Kalam", cursive;
   font-size: 16px;
   font-weight: 400;
+  text-align: center;
 }
 
 button {
@@ -34,4 +37,9 @@ button {
   padding: 10px;
   margin: 4vmin;
   font-family: "Kalam", cursive;
+  cursor: pointer;
+}
+
+button:hover {
+  box-shadow: 0px 0px 0px 2px #F26419;
 }/*# sourceMappingURL=App.css.map */

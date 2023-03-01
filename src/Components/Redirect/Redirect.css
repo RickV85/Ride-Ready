@@ -1,1 +1,11 @@
-/*# sourceMappingURL=Redirect.css.map */
+.loading-message {
+  color: #86BBD8;
+  width: 80vw;
+  margin: 10px;
+}
+
+.loading-gif {
+  height: 20vh;
+  border-radius: 10px;
+  margin: 10px;
+}/*# sourceMappingURL=Redirect.css.map */
