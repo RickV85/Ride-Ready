@@ -9,7 +9,7 @@ export default function Redirect() {
   const [userAccessToken, setUserAccessToken] = useState('');
   const [userRides, setUserRides] = useState([]);
   const [userGear, setUserGear] = useState([]);
-  const [userGearDetails, setUserGearDetails] = useState([])
+  const [userGearDetails, setUserGearDetails] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -36,19 +36,28 @@ export default function Redirect() {
     getUserActivities(1, userAccessToken)
     .then((activities) => {
       const rideActivities = filterRideActivities(activities);
-      setUserRides(rideActivities);
+      const cleanedRides = rideActivities.map((ride) => {
+        return {
+          'id': ride.id,
+          'ride_duration': ride.moving_time,
+          'ride_distance': ride.distance,
+          'ride_date': ride.start_date,
+          'gear_id': ride.gear_id,
+        }
+      })
+      setUserRides(cleanedRides);
     })
     // eslint-disable-next-line
   }, [userAccessToken])
 
   useEffect(() => {
-    if (!userRides) return;
+    if (userRides.length === 0) return;
     setUserGear(getGearIDNumbers(userRides));
     // eslint-disable-next-line
   }, [userRides])
 
   useEffect(() => {
-    if (!userGear) return;
+    if (userGear.length === 0) return;
     let fetchedGearDetail = [];
     userGear.forEach((gearID) => {
       getUserGearDetails(gearID, userAccessToken)
@@ -59,6 +68,13 @@ export default function Redirect() {
     setUserGearDetails(fetchedGearDetail)
     // eslint-disable-next-line
   }, [userGear])
+  
+  useEffect(() => {
+    if (userGearDetails) {
+      setTimeout(() => navigate('/dashboard', { replace: true, state: { userAccessToken: userAccessToken, userRides: userRides, userGearDetails: userGearDetails }}), 1500);
+    }
+    // eslint-disable-next-line
+  }, [userGearDetails])
 
   return (
     <section className="home-page">
