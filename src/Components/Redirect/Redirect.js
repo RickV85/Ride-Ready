@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { getAccessToken } from '../../APICalls'
 import './Redirect.css';
 
 export default function Redirect() {
@@ -27,37 +28,24 @@ export default function Redirect() {
     return rideActivities;
   }
 
-  const getGearIDNumbers = () => {
-    const gearNumbers = userRides.reduce((arr, ride) => {
-      let gearID = ride.gear_id;
-      if (arr.includes(gearID)) {
-        return arr;
-      } else {
-        arr.push(gearID)
-        return arr;
-      }
-    }, [])
-    setUserGear(gearNumbers)
-  }
-
-  const getAccessToken = () => {
-    return fetch(`https://www.strava.com/oauth/token`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/JSON' },
-      body: JSON.stringify({
-        client_id: `${process.env.REACT_APP_CLIENT_ID}`,
-        client_secret: `${process.env.REACT_APP_CLIENT_SECRET}`,
-        code: `${userAuthToken}`,
-        grant_type: "authorization_code"
-      })
-    }).then((response) => {
-      if (response.ok) {
-        return response.json();
-      }
-    }).catch((error) => (
-      console.log(error)
-    ))
-  }
+  // const getAccessToken = () => {
+  //   return fetch(`https://www.strava.com/oauth/token`, {
+  //     method: 'POST',
+  //     headers: { 'Content-Type': 'application/JSON' },
+  //     body: JSON.stringify({
+  //       client_id: `${process.env.REACT_APP_CLIENT_ID}`,
+  //       client_secret: `${process.env.REACT_APP_CLIENT_SECRET}`,
+  //       code: `${userAuthToken}`,
+  //       grant_type: "authorization_code"
+  //     })
+  //   }).then((response) => {
+  //     if (response.ok) {
+  //       return response.json();
+  //     }
+  //   }).catch((error) => (
+  //     console.log(error)
+  //   ))
+  // }
 
   const getUserActivities = (pageNum) => {
     return fetch(`https://www.strava.com/api/v3/athlete/activities?page=${pageNum}&per_page=200`, {
@@ -75,8 +63,20 @@ export default function Redirect() {
       console.log(error)
     })
   }
+
+  const getGearIDNumbers = () => {
+    const gearNumbers = userRides.reduce((arr, ride) => {
+      let gearID = ride.gear_id;
+      if (arr.includes(gearID)) {
+        return arr;
+      } else {
+        arr.push(gearID)
+        return arr;
+      }
+    }, [])
+    setUserGear(gearNumbers)
+  }
   
-  // "https://www.strava.com/api/v3/gear/{id}" "Authorization: Bearer [[token]]"
   const getUserGearDetails = (id) => {
     return fetch(`https://www.strava.com/api/v3/gear/${id}`, {
       headers: {
@@ -94,12 +94,7 @@ export default function Redirect() {
     })
   }
 
-
-
   useEffect(() => {
-    // Add conditional in case user does not authorize or it fails
-    // to navigate them to an error page or home
-    // If access is denied, error=access_denied will be included in the query string
     if (testForDeniedPermission(window.location.search)) return;
     const fetchedAuthToken = stripURLForToken(window.location.search);
     setUserAuthToken(fetchedAuthToken)
