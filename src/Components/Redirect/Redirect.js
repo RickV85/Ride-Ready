@@ -79,7 +79,8 @@ export default function Redirect() {
   return (
     <section className="home-page">
       <h1 className="site-logo">Ride Ready</h1>
-      <iframe className="loading-gif" title="mountain biking gif" src="https://giphy.com/embed/hWAoUDztX8kGVLvecs" frameBorder="0"></iframe>
+      <img src="/assets/mtb-roost.gif" className="loading-gif" alt="mountain biker getting rowdy" />
+      {/* <iframe className="loading-gif" title="mountain biking gif" src="https://giphy.com/embed/hWAoUDztX8kGVLvecs" frameBorder="0"></iframe> */}
       <p className="loading-message">Please wait while your data loads.<br/>This could take xxx to xxx seconds.</p>
     </section>
   )
