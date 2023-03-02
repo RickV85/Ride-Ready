@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
+import { suspensionData } from "../../SuspensionData";
 import './NewPartForm.css'
 
 export default function NewPartForm({ bikes }) {
   const [bikeOptions, setBikeOptions] = useState(bikes);
   const [bikeDropdownOptions, setBikeDropdownOptions] = useState([])
+
+  // NEED TO ADD STATES TO CONTROL FORM INPUTS
 
   useEffect(() => {
     if (!bikeOptions) return;
@@ -12,8 +15,14 @@ export default function NewPartForm({ bikes }) {
         <option key={bike.id} value={bike.id}>{bike.brand_name} {bike.model_name}</option>
       )
     })
-    setBikeDropdownOptions(bikeSelects)
+    setBikeDropdownOptions([...bikeSelects, <option key={0} value='unlistedBikeID'>Unlisted bike</option>])
   }, [bikeOptions])
+
+  const suspensionOptions = suspensionData.map((sus) => {
+    return (
+      <option key={sus.id} value={sus.id}>{sus.name}</option>
+    )
+  })
 
   return (
     <section className="new-part-form-section">
@@ -22,12 +31,10 @@ export default function NewPartForm({ bikes }) {
         <label htmlFor="bikeSelect">Which bike is this part on?</label>
         <select name="bikeSelect" className="bike-select" > 
           {bikeDropdownOptions}
-          <option value='unlistedBikeID'>Unlisted bike</option>
         </select>
         <label htmlFor="suspensionSelect">Select suspension make and fork/shock</label>
         <select name="suspensionSelect">
-          {/* Add all suspension types from table here */}
-          <option value='unlistedSuspension'>Unlisted suspension</option>
+          {suspensionOptions}
         </select>
         <label htmlFor="suspension-select">Select suspension make and fork/shock</label>
         <input name="lastRebuild" type={'date'} max={new Date().toLocaleDateString('fr-ca')} />

@@ -131,5 +131,12 @@ export const suspensionData = [
     rebuildInt: 100,
     sealInt: 30,
     serviceLink: 'https://www.pushindustries.com/pages/elevensix-support',
+  },
+  {
+    id: 20,
+    name: 'Unlisted suspension',
+    rebuildInt: 100,
+    sealInt: 50,
+    serviceLink: null,
   }
 ]
