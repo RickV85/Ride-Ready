@@ -64,7 +64,11 @@ export default function Redirect() {
     userGear.forEach((gearID) => {
       getUserGearDetails(gearID, userAccessToken)
       .then((details) => {
-        fetchedGearDetail.push(details)
+        fetchedGearDetail.push({
+          'id': details.id,
+          'brand_name': details.brand_name,
+          'model_name': details.model_name
+        })
       })
     })
     setUserGearDetails(fetchedGearDetail)
