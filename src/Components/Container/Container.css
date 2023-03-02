@@ -1,0 +1,14 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 85vw;
+  height: 70vh;
+  background-color: #33658A;
+  border-radius: 10px;
+}
+
+.add-new-mesg {
+  color: #86BBD8;
+}/*# sourceMappingURL=Container.css.map */
