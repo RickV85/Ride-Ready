@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { getAccessToken, getUserActivities, getUserGearDetails } from '../../APICalls'
+import { getAccessToken, getUserActivities, getUserGearDetails } from '../../APICalls';
+import { testForDeniedPermission, stripURLForToken, filterRideActivities, getGearIDNumbers } from '../../util.js'
 import './Redirect.css';
 
 export default function Redirect() {
@@ -11,38 +12,11 @@ export default function Redirect() {
   const [userGearDetails, setUserGearDetails] = useState([])
   const navigate = useNavigate();
 
-  const testForDeniedPermission = (url) => {
-    if (url.split("&")[1] === 'error=access_denied') {
-      navigate('/error', { replace: true, state: { message: `Please allow this app access to all activity data on Strava's login screen. You are being redirected to the home page.` }});
-      return true;
-    }
-  }; 
-
-  const stripURLForToken = (url) => {
-    if(!url) return;
-    return url.split("&")[1].slice(5);
-  };
-  
-  const filterRideActivities = (activities) => {
-    const rideActivities = activities.filter((act) => act.type === 'Ride')
-    return rideActivities;
-  }
-
-  const getGearIDNumbers = () => {
-    const gearNumbers = userRides.reduce((arr, ride) => {
-      let gearID = ride.gear_id;
-      if (arr.includes(gearID)) {
-        return arr;
-      } else {
-        arr.push(gearID)
-        return arr;
-      }
-    }, [])
-    setUserGear(gearNumbers)
-  }
-
   useEffect(() => {
-    if (testForDeniedPermission(window.location.search)) return;
+    if (testForDeniedPermission(window.location.search)) {
+      navigate('/error', { replace: true, state: { message: `Please allow this app access to all activity data on Strava's login screen. You are being redirected to the home page.` }});
+      return;
+    } 
     const fetchedAuthToken = stripURLForToken(window.location.search);
     setUserAuthToken(fetchedAuthToken)
     // eslint-disable-next-line
@@ -69,7 +43,7 @@ export default function Redirect() {
 
   useEffect(() => {
     if (!userRides) return;
-    getGearIDNumbers();
+    setUserGear(getGearIDNumbers(userRides));
     // eslint-disable-next-line
   }, [userRides])
 
