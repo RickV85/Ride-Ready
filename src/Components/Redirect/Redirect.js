@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { getAccessToken, getUserActivities } from '../../APICalls'
+import { getAccessToken, getUserActivities, getUserGearDetails } from '../../APICalls'
 import './Redirect.css';
 
 export default function Redirect() {
@@ -28,42 +28,6 @@ export default function Redirect() {
     return rideActivities;
   }
 
-  // const getAccessToken = () => {
-  //   return fetch(`https://www.strava.com/oauth/token`, {
-  //     method: 'POST',
-  //     headers: { 'Content-Type': 'application/JSON' },
-  //     body: JSON.stringify({
-  //       client_id: `${process.env.REACT_APP_CLIENT_ID}`,
-  //       client_secret: `${process.env.REACT_APP_CLIENT_SECRET}`,
-  //       code: `${userAuthToken}`,
-  //       grant_type: "authorization_code"
-  //     })
-  //   }).then((response) => {
-  //     if (response.ok) {
-  //       return response.json();
-  //     }
-  //   }).catch((error) => (
-  //     console.log(error)
-  //   ))
-  // }
-
-  // const getUserActivities = (pageNum) => {
-  //   return fetch(`https://www.strava.com/api/v3/athlete/activities?page=${pageNum}&per_page=200`, {
-  //     headers: {
-  //       Authorization: `Bearer ${userAccessToken}`
-  //     }
-  //   })
-  //   .then((response) => {
-  //     if (response.ok) {
-  //       return response.json();
-  //     }
-  //     throw new Error();
-  //   }
-  //   ).catch((error) => {
-  //     console.log(error)
-  //   })
-  // }
-
   const getGearIDNumbers = () => {
     const gearNumbers = userRides.reduce((arr, ride) => {
       let gearID = ride.gear_id;
@@ -75,23 +39,6 @@ export default function Redirect() {
       }
     }, [])
     setUserGear(gearNumbers)
-  }
-  
-  const getUserGearDetails = (id) => {
-    return fetch(`https://www.strava.com/api/v3/gear/${id}`, {
-      headers: {
-        Authorization: `Bearer ${userAccessToken}`
-      }
-    })
-    .then((response) => {
-      if (response.ok) {
-        return response.json();
-      }
-      throw new Error();
-    }
-    ).catch((error) => {
-      console.log(error)
-    })
   }
 
   useEffect(() => {
@@ -130,7 +77,7 @@ export default function Redirect() {
     if (!userGear) return;
     let fetchedGearDetail = [];
     userGear.forEach((gearID) => {
-      getUserGearDetails(gearID)
+      getUserGearDetails(gearID, userAccessToken)
       .then((details) => {
         fetchedGearDetail.push(details)
       })
@@ -138,12 +85,6 @@ export default function Redirect() {
     setUserGearDetails(fetchedGearDetail)
     // eslint-disable-next-line
   }, [userGear])
-
-  // useEffect(() => {
-  //   if (error) {
-  //     navigate('/error', { replace: true, state: { message: error }})
-  //   }
-  // }, [error])
 
   return (
     <section className="home-page">

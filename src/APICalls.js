@@ -34,5 +34,22 @@ const getUserActivities = (pageNum, userAccessToken) => {
   })
 }
 
+const getUserGearDetails = (id, userAccessToken) => {
+  return fetch(`https://www.strava.com/api/v3/gear/${id}`, {
+    headers: {
+      Authorization: `Bearer ${userAccessToken}`
+    }
+  })
+  .then((response) => {
+    if (response.ok) {
+      return response.json();
+    }
+    throw new Error();
+  }
+  ).catch((error) => {
+    console.log(error)
+  })
+}
 
-export { getAccessToken, getUserActivities };
+
+export { getAccessToken, getUserActivities, getUserGearDetails };
