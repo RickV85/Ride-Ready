@@ -1,0 +1,13 @@
+@use '../../../abstract/variables' as *;
+
+.container {
+  @include centered(column, center);
+  width: 90vw;
+  height: 70vh;
+  background-color: $medBlue;
+  border-radius: 10px;
+}
+
+.add-new-mesg {
+  color: $lightBlue;
+}
