@@ -17,5 +17,22 @@ const getAccessToken = (userAuthToken) => {
   ))
 }
 
+const getUserActivities = (pageNum, userAccessToken) => {
+  return fetch(`https://www.strava.com/api/v3/athlete/activities?page=${pageNum}&per_page=200`, {
+    headers: {
+      Authorization: `Bearer ${userAccessToken}`
+    }
+  })
+  .then((response) => {
+    if (response.ok) {
+      return response.json();
+    }
+    throw new Error();
+  }
+  ).catch((error) => {
+    console.log(error)
+  })
+}
 
-export {getAccessToken};
+
+export { getAccessToken, getUserActivities };

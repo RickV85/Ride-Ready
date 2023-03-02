@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { getAccessToken } from '../../APICalls'
+import { getAccessToken, getUserActivities } from '../../APICalls'
 import './Redirect.css';
 
 export default function Redirect() {
@@ -47,22 +47,22 @@ export default function Redirect() {
   //   ))
   // }
 
-  const getUserActivities = (pageNum) => {
-    return fetch(`https://www.strava.com/api/v3/athlete/activities?page=${pageNum}&per_page=200`, {
-      headers: {
-        Authorization: `Bearer ${userAccessToken}`
-      }
-    })
-    .then((response) => {
-      if (response.ok) {
-        return response.json();
-      }
-      throw new Error();
-    }
-    ).catch((error) => {
-      console.log(error)
-    })
-  }
+  // const getUserActivities = (pageNum) => {
+  //   return fetch(`https://www.strava.com/api/v3/athlete/activities?page=${pageNum}&per_page=200`, {
+  //     headers: {
+  //       Authorization: `Bearer ${userAccessToken}`
+  //     }
+  //   })
+  //   .then((response) => {
+  //     if (response.ok) {
+  //       return response.json();
+  //     }
+  //     throw new Error();
+  //   }
+  //   ).catch((error) => {
+  //     console.log(error)
+  //   })
+  // }
 
   const getGearIDNumbers = () => {
     const gearNumbers = userRides.reduce((arr, ride) => {
@@ -112,7 +112,7 @@ export default function Redirect() {
 
   useEffect(() => {
     if (!userAccessToken) return;
-    getUserActivities(1)
+    getUserActivities(1, userAccessToken)
     .then((activities) => {
       const rideActivities = filterRideActivities(activities);
       setUserRides(rideActivities);
