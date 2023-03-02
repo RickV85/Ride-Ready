@@ -13,7 +13,7 @@ const getAccessToken = (userAuthToken) => {
       return response.json();
     }
   }).catch((error) => (
-    console.log(error)
+    alert('An error occurred while requesting an access token. Please return to the home page and try logging in again.', error)
   ))
 }
 
@@ -28,9 +28,8 @@ const getUserActivities = (pageNum, userAccessToken) => {
       return response.json();
     }
     throw new Error();
-  }
-  ).catch((error) => {
-    console.log(error)
+  }).catch((error) => {
+    alert('An error occurred while fetching your rides. Please return to the home page and try logging in again.', error)
   })
 }
 
@@ -47,7 +46,7 @@ const getUserGearDetails = (id, userAccessToken) => {
     throw new Error();
   }
   ).catch((error) => {
-    console.log(error)
+    alert('An error occurred while fetching your bike details. Please return to the home page and try logging in again.', error)
   })
 }
 

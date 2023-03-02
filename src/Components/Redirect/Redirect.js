@@ -45,7 +45,9 @@ export default function Redirect() {
           'gear_id': ride.gear_id,
         }
       })
-      setUserRides(cleanedRides);
+      if (cleanedRides) {
+        setUserRides(cleanedRides)
+      }
     })
     // eslint-disable-next-line
   }, [userAccessToken])
