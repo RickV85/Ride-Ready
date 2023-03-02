@@ -15,16 +15,22 @@ export default function NewPartForm({ bikes }) {
     setBikeDropdownOptions(bikeSelects)
   }, [bikeOptions])
 
-
-
   return (
     <section className="new-part-form-section">
-      <form>
-        <select name="bike-select" className="bike-select" > 
-          <option value='' disabled selected hidden>Which bike is this part on?</option>
+      <h1 className="site-logo">Ride Ready</h1>
+      <form className="new-part-form">
+        <label htmlFor="bikeSelect">Which bike is this part on?</label>
+        <select name="bikeSelect" className="bike-select" > 
           {bikeDropdownOptions}
           <option value='unlistedBikeID'>Unlisted bike</option>
         </select>
+        <label htmlFor="suspensionSelect">Select suspension make and fork/shock</label>
+        <select name="suspensionSelect">
+          {/* Add all suspension types from table here */}
+          <option value='unlistedSuspension'>Unlisted suspension</option>
+        </select>
+        <label htmlFor="suspension-select">Select suspension make and fork/shock</label>
+        <input name="lastRebuild" type={'date'} max={new Date().toLocaleDateString('fr-ca')} />
       </form>
     </section>
   )
