@@ -5,3 +5,17 @@
   width: 100vw;
   @include centered(column, center);
 }
+
+.new-part-form {
+  @include centered(column, center);
+
+
+  label {
+    margin: 5px;
+    @include bodyText(16px);
+  }
+
+  input, select {
+    margin: 5px;
+  }
+}

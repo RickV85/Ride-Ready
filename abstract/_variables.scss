@@ -20,7 +20,7 @@ $mainFont: 'Kalam', cursive;
 }
 
 @mixin bodyText($size) {
-  color: $darkBlue;
+  color: $lightBlue;
   font-family: $mainFont;
   font-size: $size;
   font-weight: 400;

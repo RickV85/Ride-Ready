@@ -11,7 +11,6 @@ function App() {
   const [userBikes, setUserBikes] = useState([]);
 
   const populateUserBikes = (bikes) => {
-    console.log(bikes);
     setUserBikes(bikes);
   }
 

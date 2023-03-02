@@ -5,4 +5,21 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.new-part-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.new-part-form label {
+  margin: 5px;
+  color: #86BBD8;
+  font-family: "Kalam", cursive;
+  font-size: 16px;
+  font-weight: 400;
+}
+.new-part-form input, .new-part-form select {
+  margin: 5px;
 }/*# sourceMappingURL=NewPartForm.css.map */
