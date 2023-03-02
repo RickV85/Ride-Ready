@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import Container from '../Container/Container'
 import './Dashboard.css';
 import PropTypes from 'prop-types';
 
-export default function Dashboard() {
+export default function Dashboard({ populateUserBikes }) {
   const location = useLocation();
   const [userAccessToken, setUserAccessToken] = useState(null);
   const [userRides, setUserRides] = useState(null);
@@ -32,7 +32,9 @@ export default function Dashboard() {
     <section className="dashboard">
       <h1 className="site-logo">Ride Ready</h1>
       <Container />
-      <button>Add new suspension</button>
+      <NavLink className="add-suspension-link" to="add-new-part">
+        <button onClick={() => populateUserBikes(userGearDetails)}>Add new suspension</button>
+      </NavLink>
     </section>
   )
 }
