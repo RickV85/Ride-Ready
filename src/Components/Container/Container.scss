@@ -9,5 +9,5 @@
 }
 
 .add-new-mesg {
-  color: $lightBlue;
+  @include bodyText(16px);
 }

@@ -86,8 +86,7 @@ export default function Redirect() {
     <section className="home-page">
       <h1 className="site-logo">Ride Ready</h1>
       <img src="/assets/mtb-roost.gif" className="loading-gif" alt="mountain biker getting rowdy" />
-      {/* <iframe className="loading-gif" title="mountain biking gif" src="https://giphy.com/embed/hWAoUDztX8kGVLvecs" frameBorder="0"></iframe> */}
-      <p className="loading-message">Please wait while your data loads.<br/>This could take xxx to xxx seconds.</p>
+      <p className="loading-message">Please wait while your data loads.<br/>If this takes longer than 10 seconds, please return to the home screen and try again.</p>
     </section>
   )
 }
