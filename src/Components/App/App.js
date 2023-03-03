@@ -65,7 +65,8 @@ export default function App() {
         <NewPartForm 
           userBikes={userBikes} 
           userRides={userRides}
-          addUserSuspension={addUserSuspension} 
+          addUserSuspension={addUserSuspension}
+          userSuspension={userSuspension}
           userAccessToken={userAccessToken} 
           addUserRides={addUserRides}
         />} 

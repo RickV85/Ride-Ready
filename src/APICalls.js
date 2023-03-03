@@ -15,6 +15,7 @@ const getAccessToken = (userAuthToken) => {
     if (response.ok) {
       return response.json();
     }
+    throw new Error()
   }).catch((error) => {
     changeErrorMessage(`An error occurred while requesting an access token. 
       Please return to the home page and try logging in again. 
