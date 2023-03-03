@@ -19,7 +19,7 @@ export default function Redirect({
   // const [userAuthToken, setUserAuthToken] = useState('');
   // const [userAccessToken, setUserAccessToken] = useState('');
   // const [userRides, setUserRides] = useState([]);
-  const [userGear, setUserGear] = useState(null);
+  const [userGear, setUserGear] = useState('');
   // const [userGearDetails, setUserGearDetails] = useState(null);
   const navigate = useNavigate();
 
@@ -72,7 +72,10 @@ export default function Redirect({
   }, [userRides])
 
   useEffect(() => {
-    if (!userGear) return;
+    // console.log(userGear)
+    if (!userGear) {
+      return;
+    } 
     let fetchedGearDetail = [];
     userGear.forEach((gearID) => {
       getUserGearDetails(gearID, userAccessToken)
@@ -89,11 +92,11 @@ export default function Redirect({
   }, [userGear])
   
   useEffect(() => {
-    if (userRides) {
+    if (userBikes) {
       navigate('/dashboard', { replace: true });
     }
     // eslint-disable-next-line
-  }, [userRides])
+  }, [userBikes])
 
   return (
     <section className="home-page">

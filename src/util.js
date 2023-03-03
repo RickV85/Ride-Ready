@@ -18,9 +18,11 @@ export const filterRideActivities = (activities) => {
 }
 
 export const getGearIDNumbers = (userRides) => {
-  const gearNumbers = userRides.reduce((arr, ride) => {
+  let gearNumbers = userRides.reduce((arr, ride) => {
     let gearID = ride.gear_id;
     if (arr.includes(gearID)) {
+      return arr;
+    } else if (gearID === null) {
       return arr;
     } else {
       arr.push(gearID)
@@ -35,8 +37,8 @@ export const calculateRebuildLife = (newSus, rebuildDate, userRides, onBike, bik
   let susBike;
   let ridesOnBike;
   let rideTimeSinceLastRebuild;
-  if (onBike && bikeOptions) {
-    susBike = bikeOptions.find(bike => bike.id === onBike.id);
+  if (onBike !== '0' && bikeOptions) {
+    susBike = bikeOptions.find(bike => bike.id === onBike);
     ridesOnBike = userRides.filter(ride => ride.gear_id === susBike.id);
   }
   if (ridesOnBike) {

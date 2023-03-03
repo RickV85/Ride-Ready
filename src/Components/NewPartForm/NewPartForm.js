@@ -19,9 +19,9 @@ export default function NewPartForm({ userBikes, userRides, addUserSuspension })
           <option key={bike.id} value={bike.id}>{bike.brand_name} {bike.model_name}</option>
         )
       })
-      setBikeDropdownOptions([...bikeSelects, <option key={0} value={0} >Unlisted bike</option>])
+      setBikeDropdownOptions([...bikeSelects, <option key={0} value={0} >Unlisted bike - uses all rides available</option>])
     } else {
-      setBikeDropdownOptions([<option key={0} value={0} >Unlisted bike</option>])
+      setBikeDropdownOptions([<option key={0} value={0} >Unlisted bike (uses all rides available)</option>])
     }
   }, [bikeOptions])
 
