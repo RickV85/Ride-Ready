@@ -12,13 +12,16 @@ export default function NewPartForm({ userBikes }) {
   const [selectedRebuildDate, setSelectedRebuildDate] = useState('');
 
   useEffect(() => {
-    if (!bikeOptions) return;
-    const bikeSelects = bikeOptions.map((bike) => {
-      return (
-        <option key={bike.id} value={bike.id}>{bike.brand_name} {bike.model_name}</option>
-      )
-    })
-    setBikeDropdownOptions([...bikeSelects, <option key={0} value='unlistedBikeID'>Unlisted bike</option>])
+    if (bikeOptions) {
+      const bikeSelects = bikeOptions.map((bike) => {
+        return (
+          <option key={bike.id} value={bike.id}>{bike.brand_name} {bike.model_name}</option>
+        )
+      })
+      setBikeDropdownOptions([...bikeSelects, <option key={0} value='unlistedBikeID'>Unlisted bike</option>])
+    } else {
+      setBikeDropdownOptions([<option key={0} value='unlistedBikeID'>Unlisted bike</option>])
+    }
   }, [bikeOptions])
 
   const suspensionOptions = suspensionData.map((sus) => {
