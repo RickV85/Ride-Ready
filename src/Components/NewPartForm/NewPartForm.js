@@ -14,6 +14,7 @@ export default function NewPartForm({ userBikes, userRides, addUserSuspension, u
   const [selectedSus, setSelectedSus] = useState('');
   const [selectedRebuildDate, setSelectedRebuildDate] = useState('');
   const [fetchPageNumber, setFetchPageNumber] = useState(2);
+  const [submitDisabled, setSubmitDisabled] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -30,11 +31,13 @@ export default function NewPartForm({ userBikes, userRides, addUserSuspension, u
   }, [bikeOptions])
 
   useEffect(() => {
+    setSubmitDisabled(false);
     let moreRidesNeeded;
     if(selectedRebuildDate) {
       moreRidesNeeded = isOldestRideBeforeRebuild(userRides, selectedRebuildDate);
     }
     if (moreRidesNeeded === false) {
+      setSubmitDisabled(true);
       getUserActivities(fetchPageNumber, userAccessToken)
       .then((activities) => {
         const rideActivities = filterRideActivities(activities);
@@ -98,7 +101,7 @@ export default function NewPartForm({ userBikes, userRides, addUserSuspension, u
           value={selectedRebuildDate} onChange={(event) => setSelectedRebuildDate(event.target.value)}
         />
       </form>
-      <button onClick={() => handleSubmit()}>Submit</button>
+      <button onClick={() => handleSubmit()} disabled={submitDisabled}>Submit</button>
     </section>
   )
 }
