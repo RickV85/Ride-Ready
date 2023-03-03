@@ -89,7 +89,7 @@ export default function Redirect({
   
   useEffect(() => {
     if (userRides) {
-      setTimeout(() => navigate('/dashboard', { replace: true }), 1000);
+      navigate('/dashboard', { replace: true });
     }
     // eslint-disable-next-line
   }, [userRides])

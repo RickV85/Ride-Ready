@@ -1,3 +1,6 @@
+import changeErrorMessage from "./Components/App/App";
+import { useNavigate } from "react-router-dom";
+
 const getAccessToken = (userAuthToken) => {
   return fetch(`https://www.strava.com/oauth/token`, {
     method: 'POST',
@@ -12,9 +15,13 @@ const getAccessToken = (userAuthToken) => {
     if (response.ok) {
       return response.json();
     }
-  }).catch((error) => (
-    alert('An error occurred while requesting an access token. Please return to the home page and try logging in again.', error)
-  ))
+  }).catch((error) => {
+    changeErrorMessage(`An error occurred while requesting an access token. 
+      Please return to the home page and try logging in again. 
+      ${error}`
+    )
+    useNavigate('/error', { replace: true });
+  })
 }
 
 const getUserActivities = (pageNum, userAccessToken) => {
@@ -29,7 +36,11 @@ const getUserActivities = (pageNum, userAccessToken) => {
     }
     throw new Error();
   }).catch((error) => {
-    alert('An error occurred while fetching your rides. Please return to the home page and try logging in again.', error)
+    changeErrorMessage(`An error occurred while fetching your rides. 
+      Please return to the home page and try logging in again. 
+      ${error}`
+    );
+    useNavigate('/error', { replace: true });
   })
 }
 
@@ -46,7 +57,11 @@ const getUserGearDetails = (id, userAccessToken) => {
     throw new Error();
   }
   ).catch((error) => {
-    alert('An error occurred while fetching your bike details. Please return to the home page and try logging in again.', error)
+    changeErrorMessage(`An error occurred while fetching your bike details. 
+      Please return to the home page and try logging in again. 
+      ${error}`
+    );
+    useNavigate('/error', { replace: true });
   })
 }
 

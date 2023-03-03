@@ -7,13 +7,13 @@ import Error from '../Error/Error';
 import Dashboard from '../Dashboard/Dashboard'
 import NewPartForm from '../NewPartForm/NewPartForm';
 
-function App() {
+export default function App() {
   const [userAuthToken, setUserAuthToken] = useState(null);
   const [userAccessToken, setUserAccessToken] = useState(null);
   const [userBikes, setUserBikes] = useState(null);
   const [userRides, setUserRides] = useState(null);
   const [userSuspension, setUserSuspension] = useState(null);
-  const [errorMessage, setErrorMessage] = useState(null);
+  const [errorMessage, setErrorMessage] = useState('');
 
   const addAuthToken = (token) => {
     setUserAuthToken(token);
@@ -69,10 +69,15 @@ function App() {
           addUserSuspension={addUserSuspension} 
           />} 
         />
-      <Route path='/error' element={ <Error errorMessage={errorMessage} /> } />
+      <Route path='/error' element={ 
+        <Error 
+        errorMessage={errorMessage} 
+        changeErrorMessage={changeErrorMessage}
+        /> } 
+      />
     </Routes>
     </main>
   );
 }
 
-export default App;
+// export { App, changeErrorMessage }  ;
