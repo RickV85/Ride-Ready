@@ -4,21 +4,33 @@ import { getAccessToken, getUserActivities, getUserGearDetails } from '../../API
 import { testForDeniedPermission, stripURLForToken, filterRideActivities, getGearIDNumbers } from '../../util.js'
 import './Redirect.css';
 
-export default function Redirect() {
-  const [userAuthToken, setUserAuthToken] = useState('');
-  const [userAccessToken, setUserAccessToken] = useState('');
-  const [userRides, setUserRides] = useState([]);
-  const [userGear, setUserGear] = useState([]);
-  const [userGearDetails, setUserGearDetails] = useState(null);
+export default function Redirect({
+  addAuthToken,
+  userAuthToken, 
+  addAccessToken,
+  userAccessToken,
+  addUserBikes,
+  userBikes, 
+  addUserRides,
+  userRides,
+  changeErrorMessage
+}) {
+  // const [userAuthToken, setUserAuthToken] = useState('');
+  // const [userAccessToken, setUserAccessToken] = useState('');
+  // const [userRides, setUserRides] = useState([]);
+  const [userGear, setUserGear] = useState(null);
+  // const [userGearDetails, setUserGearDetails] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
     if (testForDeniedPermission(window.location.search)) {
-      navigate('/error', { replace: true, state: { message: `Please allow this app access to all activity data on Strava's login screen. You are being redirected to the home page.` }});
+      changeErrorMessage(`Please allow this app access to all activity data on Strava's login screen. 
+        You are being redirected to the home page.`)
+      navigate('/error', { replace: true });
       return;
     } 
     const fetchedAuthToken = stripURLForToken(window.location.search);
-    setUserAuthToken(fetchedAuthToken)
+    addAuthToken(fetchedAuthToken)
     // eslint-disable-next-line
   }, [])
 
@@ -26,7 +38,7 @@ export default function Redirect() {
     if (!userAuthToken) return;
     getAccessToken(userAuthToken)
     .then((data) => {
-      setUserAccessToken(data.access_token);
+      addAccessToken(data.access_token);
     })
     // eslint-disable-next-line
   }, [userAuthToken])
@@ -46,20 +58,20 @@ export default function Redirect() {
         }
       })
       if (cleanedRides) {
-        setUserRides(cleanedRides)
+        addUserRides(cleanedRides)
       }
     })
     // eslint-disable-next-line
   }, [userAccessToken])
 
   useEffect(() => {
-    if (userRides.length === 0) return;
+    if (!userRides) return;
     setUserGear(getGearIDNumbers(userRides));
     // eslint-disable-next-line
   }, [userRides])
 
   useEffect(() => {
-    if (userGear.length === 0) return;
+    if (!userGear) return;
     let fetchedGearDetail = [];
     userGear.forEach((gearID) => {
       getUserGearDetails(gearID, userAccessToken)
@@ -71,16 +83,16 @@ export default function Redirect() {
         })
       })
     })
-    setUserGearDetails(fetchedGearDetail)
+    addUserBikes(fetchedGearDetail)
     // eslint-disable-next-line
   }, [userGear])
   
   useEffect(() => {
-    if (userGearDetails) {
-      setTimeout(() => navigate('/dashboard', { replace: true, state: { userAccessToken: userAccessToken, userRides: userRides, userGearDetails: userGearDetails }}), 1500);
+    if (userRides) {
+      setTimeout(() => navigate('/dashboard', { replace: true }), 1000);
     }
     // eslint-disable-next-line
-  }, [userGearDetails])
+  }, [userRides])
 
   return (
     <section className="home-page">

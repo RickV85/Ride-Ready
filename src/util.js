@@ -1,3 +1,6 @@
+import moment from 'moment';
+import { suspensionData } from './SuspensionData';
+
 export const testForDeniedPermission = (url) => {
   if (url.split("&")[1] === 'error=access_denied') {
     return true;
@@ -25,4 +28,12 @@ export const getGearIDNumbers = (userRides) => {
     }
   }, [])
   return gearNumbers;
+}
+
+export const calculateRebuildLife = (newSus, date, rides, onBike, bikeOptions) => {
+  const suspension = suspensionData.find(sus => sus.id === newSus.id);
+  // const today = Date.now() with moment conversion?
+  const susBike = bikeOptions.find(bike => bike.id === onBike.id);
+  const ridesOnBike = rides.filter(ride => ride.gear_id === onBike.id);
+  
 }

@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react";
 import { suspensionData } from "../../SuspensionData";
 import './NewPartForm.css'
 
-export default function NewPartForm({ bikes }) {
+export default function NewPartForm({ userBikes }) {
   // eslint-disable-next-line
-  const [bikeOptions, setBikeOptions] = useState(bikes);
+  const [bikeOptions, setBikeOptions] = useState(userBikes);
   const [bikeDropdownOptions, setBikeDropdownOptions] = useState([]);
   const [selectedBike, setSelectedBike] = useState('');
   const [selectedSus, setSelectedSus] = useState('');
@@ -26,6 +26,14 @@ export default function NewPartForm({ bikes }) {
     )
   })
 
+  const handleSubmit = () => {
+    // Run calculation on service from calculateRebuildLife()
+    // Store value of above in a state
+    // navigate to dashboard, make an object to pass {above calc result state, suspension selected, bike selected, rebuild date}
+    // create new tile / suspension detail in dashboard - will need a new state there for both
+
+  }
+
   return (
     <section className="new-part-form-section">
       <h1 className="site-logo">Ride Ready</h1>
@@ -45,6 +53,7 @@ export default function NewPartForm({ bikes }) {
           value={selectedRebuildDate} onChange={(event) => setSelectedRebuildDate(event.target.value)}
         />
       </form>
+      <button onClick={() => handleSubmit}>Submit</button>
     </section>
   )
 }

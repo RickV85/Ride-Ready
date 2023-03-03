@@ -1,7 +1,7 @@
 import React from "react";
 import './Container.css'
 
-export default function Container() {
+export default function Container({ userSuspension }) {
   
 
   return (
