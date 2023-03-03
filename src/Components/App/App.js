@@ -58,8 +58,6 @@ export default function App() {
       />
       <Route path='/dashboard' element={ 
         <Dashboard 
-            // userBikes={userBikes} 
-            // userRides={userRides} 
             userSuspension={userSuspension}
           />} 
         />

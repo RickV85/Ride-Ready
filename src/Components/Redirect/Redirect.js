@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { getAccessToken, getUserActivities, getUserGearDetails } from '../../APICalls';
 import { testForDeniedPermission, stripURLForToken, filterRideActivities, getGearIDNumbers } from '../../util.js'
 import './Redirect.css';
+import PropTypes from 'prop-types';
 
 export default function Redirect({
   addAuthToken,
@@ -101,4 +102,16 @@ export default function Redirect({
       <p className="loading-message">Please wait while your data loads.<br/>If this takes longer than 10 seconds, please return to the home screen and try again.</p>
     </section>
   )
+}
+
+Redirect.propTypes = {
+  addAuthToken: PropTypes.func,
+  userAuthToken: PropTypes.string,
+  addAccessToken: PropTypes.func,
+  userAccessToken: PropTypes.string,
+  addUserBikes: PropTypes.func,
+  userBikes: PropTypes.array, 
+  addUserRides: PropTypes.func,
+  userRides: PropTypes.array, 
+  changeErrorMessage: PropTypes.func
 }

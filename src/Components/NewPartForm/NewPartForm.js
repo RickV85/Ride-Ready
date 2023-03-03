@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { suspensionData } from "../../SuspensionData";
-import './NewPartForm.css'
+import './NewPartForm.css';
+import PropTypes from 'prop-types';
 
 export default function NewPartForm({ userBikes }) {
   // eslint-disable-next-line
@@ -56,4 +57,8 @@ export default function NewPartForm({ userBikes }) {
       <button onClick={() => handleSubmit}>Submit</button>
     </section>
   )
+}
+
+NewPartForm.propTypes = {
+  userBikes: PropTypes.array
 }

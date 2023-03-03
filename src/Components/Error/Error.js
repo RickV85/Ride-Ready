@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import './Error.css';
-
+import PropTypes from 'prop-types';
 
 export default function Error ({ errorMessage, changeErrorMessage }) {
   const navigate = useNavigate();
@@ -19,4 +19,9 @@ export default function Error ({ errorMessage, changeErrorMessage }) {
       <p className="error-message">{errorMessage}</p>
     </section>
   )
+}
+
+Error.propTypes = {
+  changeErrorMessage: PropTypes.func,
+  errorMessage: PropTypes.string
 }
