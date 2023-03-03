@@ -2,15 +2,17 @@ import React, { useEffect, useState } from "react";
 import { suspensionData } from "../../SuspensionData";
 import './NewPartForm.css';
 import PropTypes from 'prop-types';
-import { calculateRebuildLife } from "../../util";
+import { calculateRebuildLife, isOldestRideBeforeRebuild, filterRideActivities, cleanRideData } from "../../util";
+import { getUserActivities } from '../../APICalls';
 
-export default function NewPartForm({ userBikes, userRides, addUserSuspension }) {
+export default function NewPartForm({ userBikes, userRides, addUserSuspension, userAccessToken, addUserRides }) {
   // eslint-disable-next-line
   const [bikeOptions, setBikeOptions] = useState(userBikes);
   const [bikeDropdownOptions, setBikeDropdownOptions] = useState([]);
   const [selectedBike, setSelectedBike] = useState('');
   const [selectedSus, setSelectedSus] = useState('');
   const [selectedRebuildDate, setSelectedRebuildDate] = useState('');
+  const [fetchPageNumber, setFetchPageNumber] = useState(2);
 
   useEffect(() => {
     if (bikeOptions) {
@@ -25,6 +27,25 @@ export default function NewPartForm({ userBikes, userRides, addUserSuspension })
     }
   }, [bikeOptions])
 
+  useEffect(() => {
+    let moreRidesNeeded;
+    if(selectedRebuildDate) {
+      moreRidesNeeded = isOldestRideBeforeRebuild(userRides, selectedRebuildDate);
+    }
+    if (moreRidesNeeded === false) {
+      getUserActivities(fetchPageNumber, userAccessToken)
+      .then((activities) => {
+        const rideActivities = filterRideActivities(activities);
+        const cleanedRides = cleanRideData(rideActivities);
+        if (cleanedRides) {
+          addUserRides([...userRides, ...cleanedRides])
+        }
+      })
+      setFetchPageNumber(fetchPageNumber + 1)
+    }
+  // eslint-disable-next-line 
+  }, [selectedRebuildDate, userRides])
+
   const suspensionOptions = suspensionData.map((sus) => {
     return (
       <option key={sus.id} value={sus.id}>{sus.name}</option>
@@ -36,6 +57,7 @@ export default function NewPartForm({ userBikes, userRides, addUserSuspension })
     // Store value in app state with addUserSuspension
     // navigate to dashboard, make an object to pass {above calc result state, suspension selected, bike selected, rebuild date}
     // create new tile / suspension detail in dashboard - will need a new state there for both
+    console.log(isOldestRideBeforeRebuild(userRides, selectedRebuildDate))
     console.log(calculateRebuildLife(selectedSus, selectedRebuildDate, userRides, selectedBike, userBikes))
 
   }

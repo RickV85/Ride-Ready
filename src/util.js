@@ -17,6 +17,19 @@ export const filterRideActivities = (activities) => {
   return rideActivities;
 }
 
+export const cleanRideData = (rides) => {
+  const cleanedRides = rides.map((ride) => {
+    return {
+      'id': ride.id,
+      'ride_duration': ride.moving_time,
+      'ride_distance': ride.distance,
+      'ride_date': ride.start_date,
+      'gear_id': ride.gear_id,
+    }
+  })
+  return cleanedRides;
+}
+
 export const getGearIDNumbers = (userRides) => {
   let gearNumbers = userRides.reduce((arr, ride) => {
     let gearID = ride.gear_id;
@@ -59,4 +72,16 @@ export const calculateRebuildLife = (newSus, rebuildDate, userRides, onBike, bik
   const hoursSinceLastRebuild = rideTimeSinceLastRebuild / 3600;
   const percentRebuildLifeRemaining = 1 - (hoursSinceLastRebuild / suspension.rebuildInt);
   return percentRebuildLifeRemaining;
+}
+
+export const isOldestRideBeforeRebuild = (rides, rebuildDate) => {
+  let today = moment().format()
+  const oldestRideDate = rides.reduce((oldest, ride) => {
+    if (moment(ride.ride_date).isBefore(oldest)) {
+      oldest = ride.ride_date;
+    }
+    return oldest;
+  }, today)
+  const lastRideBeforeRebuild = moment(oldestRideDate).isBefore(rebuildDate);
+  return lastRideBeforeRebuild;
 }

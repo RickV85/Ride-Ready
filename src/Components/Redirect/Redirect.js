@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getAccessToken, getUserActivities, getUserGearDetails } from '../../APICalls';
-import { testForDeniedPermission, stripURLForToken, filterRideActivities, getGearIDNumbers } from '../../util.js'
+import { testForDeniedPermission, stripURLForToken, filterRideActivities, getGearIDNumbers, cleanRideData } from '../../util.js'
 import './Redirect.css';
 import PropTypes from 'prop-types';
 
@@ -49,15 +49,7 @@ export default function Redirect({
     getUserActivities(1, userAccessToken)
     .then((activities) => {
       const rideActivities = filterRideActivities(activities);
-      const cleanedRides = rideActivities.map((ride) => {
-        return {
-          'id': ride.id,
-          'ride_duration': ride.moving_time,
-          'ride_distance': ride.distance,
-          'ride_date': ride.start_date,
-          'gear_id': ride.gear_id,
-        }
-      })
+      const cleanedRides = cleanRideData(rideActivities);
       if (cleanedRides) {
         addUserRides(cleanedRides)
       }
@@ -93,7 +85,7 @@ export default function Redirect({
   
   useEffect(() => {
     if (userBikes) {
-      navigate('/dashboard', { replace: true });
+      setTimeout(navigate('/dashboard', { replace: true }), 1000);
     }
     // eslint-disable-next-line
   }, [userBikes])

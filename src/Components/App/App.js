@@ -66,6 +66,8 @@ export default function App() {
           userBikes={userBikes} 
           userRides={userRides}
           addUserSuspension={addUserSuspension} 
+          userAccessToken={userAccessToken} 
+          addUserRides={addUserRides}
         />} 
       />
       <Route path='/error' element={ 
