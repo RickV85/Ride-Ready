@@ -2,8 +2,9 @@ import React, { useEffect, useState } from "react";
 import { suspensionData } from "../../SuspensionData";
 import './NewPartForm.css';
 import PropTypes from 'prop-types';
+import { calculateRebuildLife } from "../../util";
 
-export default function NewPartForm({ userBikes }) {
+export default function NewPartForm({ userBikes, userRides, addUserSuspension }) {
   // eslint-disable-next-line
   const [bikeOptions, setBikeOptions] = useState(userBikes);
   const [bikeDropdownOptions, setBikeDropdownOptions] = useState([]);
@@ -18,9 +19,9 @@ export default function NewPartForm({ userBikes }) {
           <option key={bike.id} value={bike.id}>{bike.brand_name} {bike.model_name}</option>
         )
       })
-      setBikeDropdownOptions([...bikeSelects, <option key={0} value='unlistedBikeID'>Unlisted bike</option>])
+      setBikeDropdownOptions([...bikeSelects, <option key={0} value={0} >Unlisted bike</option>])
     } else {
-      setBikeDropdownOptions([<option key={0} value='unlistedBikeID'>Unlisted bike</option>])
+      setBikeDropdownOptions([<option key={0} value={0} >Unlisted bike</option>])
     }
   }, [bikeOptions])
 
@@ -32,9 +33,10 @@ export default function NewPartForm({ userBikes }) {
 
   const handleSubmit = () => {
     // Run calculation on service from calculateRebuildLife()
-    // Store value of above in a state
+    // Store value in app state with addUserSuspension
     // navigate to dashboard, make an object to pass {above calc result state, suspension selected, bike selected, rebuild date}
     // create new tile / suspension detail in dashboard - will need a new state there for both
+    console.log(calculateRebuildLife(selectedSus, selectedRebuildDate, userRides, selectedBike, userBikes))
 
   }
 
@@ -57,11 +59,12 @@ export default function NewPartForm({ userBikes }) {
           value={selectedRebuildDate} onChange={(event) => setSelectedRebuildDate(event.target.value)}
         />
       </form>
-      <button onClick={() => handleSubmit}>Submit</button>
+      <button onClick={() => handleSubmit()}>Submit</button>
     </section>
   )
 }
 
 NewPartForm.propTypes = {
-  userBikes: PropTypes.array
+  userBikes: PropTypes.array,
+  userRides: PropTypes.array
 }

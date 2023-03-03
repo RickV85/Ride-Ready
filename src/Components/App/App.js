@@ -59,14 +59,15 @@ export default function App() {
       <Route path='/dashboard' element={ 
         <Dashboard 
             userSuspension={userSuspension}
-          />} 
-        />
+        />} 
+      />
       <Route path='/dashboard/add-new-part' element={ 
         <NewPartForm 
           userBikes={userBikes} 
+          userRides={userRides}
           addUserSuspension={addUserSuspension} 
-          />} 
-        />
+        />} 
+      />
       <Route path='/error' element={ 
         <Error 
         errorMessage={errorMessage} 

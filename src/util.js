@@ -30,10 +30,31 @@ export const getGearIDNumbers = (userRides) => {
   return gearNumbers;
 }
 
-export const calculateRebuildLife = (newSus, date, rides, onBike, bikeOptions) => {
-  const suspension = suspensionData.find(sus => sus.id === newSus.id);
-  // const today = Date.now() with moment conversion?
-  const susBike = bikeOptions.find(bike => bike.id === onBike.id);
-  const ridesOnBike = rides.filter(ride => ride.gear_id === onBike.id);
-  
+export const calculateRebuildLife = (newSus, rebuildDate, userRides, onBike, bikeOptions) => {
+  const suspension = suspensionData.find(sus => sus.id === +(newSus));
+  let susBike;
+  let ridesOnBike;
+  let rideTimeSinceLastRebuild;
+  if (onBike && bikeOptions) {
+    susBike = bikeOptions.find(bike => bike.id === onBike.id);
+    ridesOnBike = userRides.filter(ride => ride.gear_id === susBike.id);
+  }
+  if (ridesOnBike) {
+    rideTimeSinceLastRebuild = ridesOnBike.reduce((total, ride) => {
+      if (moment(ride.ride_date).isAfter(rebuildDate)) {
+        total += ride.ride_duration;
+      }
+      return total;
+    }, 0)
+  } else {
+    rideTimeSinceLastRebuild = userRides.reduce((total, ride) => {
+      if (moment(ride.ride_date).isAfter(rebuildDate)) {
+        total += ride.ride_duration;
+      }
+      return total;
+    }, 0)
+  }
+  const hoursSinceLastRebuild = rideTimeSinceLastRebuild / 3600;
+  const percentRebuildLifeRemaining = 1 - (hoursSinceLastRebuild / suspension.rebuildInt);
+  return percentRebuildLifeRemaining;
 }
