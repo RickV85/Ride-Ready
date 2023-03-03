@@ -1,11 +1,12 @@
 @use '../../../abstract/variables' as *;
 
 .container {
-  @include centered(column, center);
-  width: 90vw;
+  @include centered(column, flex-start);
+  width: 94vw;
   height: 70vh;
   background-color: $medBlue;
   border-radius: 10px;
+  overflow-y: scroll;
 }
 
 .add-new-mesg {

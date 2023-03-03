@@ -1,0 +1,37 @@
+.tile {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 88vw;
+  height: -moz-fit-content;
+  height: fit-content;
+  background-color: #86BBD8;
+  border-radius: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+.tile h2 {
+  color: #2F4858;
+  font-size: 32px;
+  font-weight: 700;
+}
+.tile h3 {
+  color: #2F4858;
+}
+.tile p {
+  color: #2F4858;
+}
+.tile button {
+  height: 6vh;
+  font-size: 14px;
+}
+
+.tile-button-section {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}/*# sourceMappingURL=Tile.css.map */

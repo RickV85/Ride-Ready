@@ -7,24 +7,79 @@ import Error from '../Error/Error';
 import Dashboard from '../Dashboard/Dashboard'
 import NewPartForm from '../NewPartForm/NewPartForm';
 
-function App() {
-  const [userBikes, setUserBikes] = useState([]);
+export default function App() {
+  const [userAuthToken, setUserAuthToken] = useState(null);
+  const [userAccessToken, setUserAccessToken] = useState(null);
+  const [userBikes, setUserBikes] = useState(null);
+  const [userRides, setUserRides] = useState(null);
+  const [userSuspension, setUserSuspension] = useState(null);
+  const [errorMessage, setErrorMessage] = useState('');
 
-  const populateUserBikes = (bikes) => {
+  const addAuthToken = (token) => {
+    setUserAuthToken(token);
+  }
+
+  const addAccessToken = (token) => {
+    setUserAccessToken(token);
+  }
+
+  const addUserBikes = (bikes) => {
     setUserBikes(bikes);
+  }
+
+  const addUserRides = (rides) => {
+    setUserRides(rides);
+  }
+
+  const addUserSuspension = (suspension) => {
+    setUserSuspension(suspension);
+  }
+
+  const changeErrorMessage = (errorMessage) => {
+    setErrorMessage(errorMessage);
   }
 
   return (
     <main className='app-background'>
     <Routes >
       <Route path='/' element={ <Home /> } />
-      <Route path='/redirect/*' element={ <Redirect /> } />
-      <Route path='/dashboard' element={ <Dashboard populateUserBikes={populateUserBikes} />} />
-      <Route path='/dashboard/add-new-part' element={ <NewPartForm bikes={userBikes} />} />
-      <Route path='/error' element={ <Error /> } />
+      <Route path='/redirect/*' element={ 
+        <Redirect 
+          addAuthToken={addAuthToken} 
+          userAuthToken={userAuthToken} 
+          addAccessToken={addAccessToken} 
+          userAccessToken={userAccessToken} 
+          addUserBikes={addUserBikes} 
+          userBikes={userBikes} 
+          addUserRides={addUserRides} 
+          userRides={userRides} 
+          changeErrorMessage={changeErrorMessage}
+        />}
+      />
+      <Route path='/dashboard' element={ 
+        <Dashboard 
+            userSuspension={userSuspension}
+        />} 
+      />
+      <Route path='/dashboard/add-new-part' element={ 
+        <NewPartForm 
+          userBikes={userBikes} 
+          userRides={userRides}
+          addUserSuspension={addUserSuspension}
+          userSuspension={userSuspension}
+          userAccessToken={userAccessToken} 
+          addUserRides={addUserRides}
+        />} 
+      />
+      <Route path='/error' element={ 
+        <Error 
+        errorMessage={errorMessage} 
+        changeErrorMessage={changeErrorMessage}
+        /> } 
+      />
     </Routes>
     </main>
   );
 }
 
-export default App;
+// export { App, changeErrorMessage }  ;

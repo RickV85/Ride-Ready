@@ -1,30 +1,86 @@
 import React, { useEffect, useState } from "react";
 import { suspensionData } from "../../SuspensionData";
-import './NewPartForm.css'
+import './NewPartForm.css';
+import PropTypes from 'prop-types';
+import { calculateRebuildLife, isOldestRideBeforeRebuild, filterRideActivities, cleanRideData } from "../../util";
+import { getUserActivities } from '../../APICalls';
+import { useNavigate } from "react-router-dom";
 
-export default function NewPartForm({ bikes }) {
+export default function NewPartForm({ userBikes, userRides, addUserSuspension, userSuspension, userAccessToken, addUserRides }) {
   // eslint-disable-next-line
-  const [bikeOptions, setBikeOptions] = useState(bikes);
+  const [bikeOptions, setBikeOptions] = useState(userBikes);
   const [bikeDropdownOptions, setBikeDropdownOptions] = useState([]);
   const [selectedBike, setSelectedBike] = useState('');
   const [selectedSus, setSelectedSus] = useState('');
   const [selectedRebuildDate, setSelectedRebuildDate] = useState('');
+  const [fetchPageNumber, setFetchPageNumber] = useState(2);
+  const [submitDisabled, setSubmitDisabled] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    if (!bikeOptions) return;
-    const bikeSelects = bikeOptions.map((bike) => {
-      return (
-        <option key={bike.id} value={bike.id}>{bike.brand_name} {bike.model_name}</option>
-      )
-    })
-    setBikeDropdownOptions([...bikeSelects, <option key={0} value='unlistedBikeID'>Unlisted bike</option>])
+    if (bikeOptions) {
+      const bikeSelects = bikeOptions.map((bike) => {
+        return (
+          <option key={bike.id} value={bike.id}>{bike.brand_name} {bike.model_name}</option>
+        )
+      })
+      setBikeDropdownOptions([...bikeSelects, <option key={0} value={0} >Unlisted bike - uses all rides available</option>])
+    } else {
+      setBikeDropdownOptions([<option key={0} value={0} >Unlisted bike (uses all rides available)</option>])
+    }
   }, [bikeOptions])
+
+  useEffect(() => {
+    setSubmitDisabled(false);
+    let moreRidesNeeded;
+    if(selectedRebuildDate) {
+      moreRidesNeeded = isOldestRideBeforeRebuild(userRides, selectedRebuildDate);
+    }
+    if (moreRidesNeeded === false) {
+      setSubmitDisabled(true);
+      getUserActivities(fetchPageNumber, userAccessToken)
+      .then((activities) => {
+        const rideActivities = filterRideActivities(activities);
+        const cleanedRides = cleanRideData(rideActivities);
+        if (cleanedRides) {
+          addUserRides([...userRides, ...cleanedRides])
+        }
+      })
+      setFetchPageNumber(fetchPageNumber + 1)
+    }
+  // eslint-disable-next-line 
+  }, [selectedRebuildDate, userRides])
 
   const suspensionOptions = suspensionData.map((sus) => {
     return (
       <option key={sus.id} value={sus.id}>{sus.name}</option>
     )
   })
+
+  const handleSubmit = () => {
+    if (!(selectedBike && selectedSus && selectedRebuildDate)) {
+      alert("Please fill out all forms before submitting suspension")
+      return;
+    }
+
+    const selectedSuspensionName = suspensionData.find(sus => sus.id === +(selectedSus));
+    const selectedBikeName = bikeOptions.find(bike => bike.id === selectedBike)
+
+    const newSuspensionData = {
+      'susData': selectedSuspensionName,
+      'onBike': selectedBikeName,
+      'rebuildDate': selectedRebuildDate,
+      'rebuildLife': calculateRebuildLife(selectedSus, selectedRebuildDate, userRides, selectedBike, userBikes)
+    }
+
+    if (userSuspension) {
+      addUserSuspension([...userSuspension, newSuspensionData])
+    } else {
+      addUserSuspension([newSuspensionData])
+    }
+    
+    navigate('/dashboard')
+  }
 
   return (
     <section className="new-part-form-section">
@@ -45,6 +101,12 @@ export default function NewPartForm({ bikes }) {
           value={selectedRebuildDate} onChange={(event) => setSelectedRebuildDate(event.target.value)}
         />
       </form>
+      <button onClick={() => handleSubmit()} disabled={submitDisabled}>Submit</button>
     </section>
   )
+}
+
+NewPartForm.propTypes = {
+  userBikes: PropTypes.array,
+  userRides: PropTypes.array
 }
