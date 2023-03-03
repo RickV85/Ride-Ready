@@ -7,7 +7,7 @@
 h1 {
   color: #86BBD8;
   font-family: "Kalam", cursive;
-  font-size: 22px;
+  font-size: 28px;
   font-weight: 400;
   text-align: center;
 }
@@ -15,7 +15,15 @@ h1 {
 h2 {
   color: #86BBD8;
   font-family: "Kalam", cursive;
-  font-size: 18px;
+  font-size: 24px;
+  font-weight: 400;
+  text-align: center;
+}
+
+h3 {
+  color: #86BBD8;
+  font-family: "Kalam", cursive;
+  font-size: 22px;
   font-weight: 400;
   text-align: center;
 }
@@ -23,7 +31,7 @@ h2 {
 p {
   color: #86BBD8;
   font-family: "Kalam", cursive;
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 400;
   text-align: center;
 }
@@ -38,6 +46,7 @@ button {
   margin: 4vmin;
   font-family: "Kalam", cursive;
   cursor: pointer;
+  font-size: 18px;
 }
 
 button:hover {

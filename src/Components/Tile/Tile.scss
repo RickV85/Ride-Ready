@@ -1,0 +1,36 @@
+@use '../../../abstract/variables' as *;
+
+.tile {
+  @include centered(column, center);
+  width: 88vw;
+  height: fit-content;
+  background-color: $lightBlue;
+  border-radius: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+
+  h2 {
+    color: $darkBlue;
+    font-size: 32px;
+    font-weight: 700;
+  }
+
+  h3 {
+    color: $darkBlue;
+  }
+
+  p {
+    color: $darkBlue;
+  }
+
+  button {
+    height: 6vh;
+    font-size: 14px;
+  }
+}
+
+.tile-button-section {
+  @include centered(row, center)
+}

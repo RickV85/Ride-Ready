@@ -7,17 +7,22 @@
 }
 
 h1 {
-  @include bodyText(22px);
+  @include bodyText(28px);
   text-align: center;
 }
 
 h2 {
-  @include bodyText(18px);
+  @include bodyText(24px);
+  text-align: center;
+}
+
+h3 {
+  @include bodyText(22px);
   text-align: center;
 }
 
 p {
-  @include bodyText(16px);
+  @include bodyText(18px);
   text-align: center;
 }
 
@@ -30,7 +35,8 @@ button {
   padding: 10px;
   margin: 4vmin;
   font-family: $mainFont;
-  cursor: pointer
+  cursor: pointer;
+  font-size: 18px;
 }
 
 button:hover {
