@@ -5,7 +5,7 @@ import Tile from "../Tile/Tile";
 
 export default function Container({ userSuspension }) {
   const [susTiles, setSusTiles] = useState([]);
-  const noSusMessage = <p className="add-new-mesg">No suspension to view. Add a new suspension part to track by clicking the button below.</p>;
+  const noSusMessage = <p className="add-new-mesg">No suspension to view. Add a new suspension part by clicking the button below.</p>;
 
   useEffect(() => {
     if (userSuspension) {

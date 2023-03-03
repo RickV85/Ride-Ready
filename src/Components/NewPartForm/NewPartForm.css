@@ -6,6 +6,9 @@
   justify-content: center;
   align-items: center;
 }
+.new-part-form-section button {
+  width: 20vw;
+}
 
 .new-part-form {
   display: flex;
@@ -22,4 +25,11 @@
 }
 .new-part-form input, .new-part-form select {
   margin: 5px;
+}
+
+.newpartform-button-section {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 }/*# sourceMappingURL=NewPartForm.css.map */

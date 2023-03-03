@@ -4,6 +4,10 @@
   height: 100vh;
   width: 100vw;
   @include centered(column, center);
+
+  button {
+    width: 20vw;
+  }
 }
 
 .new-part-form {
@@ -18,4 +22,8 @@
   input, select {
     margin: 5px;
   }
+}
+
+.newpartform-button-section {
+  @include centered(row, center)
 }

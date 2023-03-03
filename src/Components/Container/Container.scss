@@ -10,5 +10,6 @@
 }
 
 .add-new-mesg {
-  @include bodyText(16px);
+  @include bodyText(18px);
+  margin-top: 10px;
 }

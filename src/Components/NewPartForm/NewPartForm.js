@@ -101,7 +101,10 @@ export default function NewPartForm({ userBikes, userRides, addUserSuspension, u
           value={selectedRebuildDate} onChange={(event) => setSelectedRebuildDate(event.target.value)}
         />
       </form>
-      <button onClick={() => handleSubmit()} disabled={submitDisabled}>Submit</button>
+      <div className="newpartform-button-section">
+        <button onClick={() => handleSubmit()} disabled={submitDisabled}>Submit</button>
+        <button onClick={() => navigate('/dashboard')} >Back</button>
+      </div>
     </section>
   )
 }
