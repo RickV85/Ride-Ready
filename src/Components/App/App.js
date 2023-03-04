@@ -17,6 +17,7 @@ export default function App() {
   const [userSuspension, setUserSuspension] = useState(null);
   const [selectedSuspension, setSelectedSuspension] = useState(null);
   const [errorMessage, setErrorMessage] = useState('');
+  const [pagesFetched, setPagesFetched] = useState(1);
 
   const addAuthToken = (token) => {
     setUserAuthToken(token);
@@ -67,19 +68,28 @@ export default function App() {
       />
       <Route path='/dashboard/add-new-part' element={ 
         <NewPartForm 
+          userAccessToken={userAccessToken} 
           userBikes={userBikes} 
-          userRides={userRides}
           addUserSuspension={addUserSuspension}
           userSuspension={userSuspension}
-          userAccessToken={userAccessToken} 
+          userRides={userRides}
           addUserRides={addUserRides}
+          pagesFetched={pagesFetched}
+          setPagesFetched={setPagesFetched}
         />} 
       />
-      <Route path='/dashboard/edit' element={ <EditSus 
+      <Route path='/dashboard/edit' element={ 
+        <EditSus 
           addUserSuspension={addUserSuspension}
           userSuspension={userSuspension}
           setSelectedSuspension={setSelectedSuspension} 
           selectedSuspension={selectedSuspension} 
+          userAccessToken={userAccessToken}
+          userRides={userRides}
+          addUserRides={addUserRides}
+          pagesFetched={pagesFetched}
+          setPagesFetched={setPagesFetched}
+          userBikes={userBikes}
         />}
       />
       <Route path='/dashboard/delete' element={ <DeleteSus  

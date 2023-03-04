@@ -6,15 +6,15 @@ import { calculateRebuildLife, isOldestRideBeforeRebuild, filterRideActivities, 
 import { getUserActivities } from '../../APICalls';
 import { useNavigate } from "react-router-dom";
 
-export default function NewPartForm({ userBikes, userRides, addUserSuspension, userSuspension, userAccessToken, addUserRides }) {
+export default function NewPartForm({ userBikes, userRides, addUserSuspension, userSuspension, userAccessToken, addUserRides, pagesFetched, setPagesFetched }) {
   // eslint-disable-next-line
   const [bikeOptions, setBikeOptions] = useState(userBikes);
   const [bikeDropdownOptions, setBikeDropdownOptions] = useState([]);
   const [selectedBike, setSelectedBike] = useState('');
   const [selectedSus, setSelectedSus] = useState('');
   const [selectedRebuildDate, setSelectedRebuildDate] = useState('');
-  const [fetchPageNumber, setFetchPageNumber] = useState(1);
-  const [fetchCount, setFetchCount] = useState(1);
+  const [fetchPageNumber, setFetchPageNumber] = useState(pagesFetched);
+  const [fetchCount, setFetchCount] = useState(pagesFetched);
   const [submitDisabled, setSubmitDisabled] = useState(false);
   const navigate = useNavigate();
 
@@ -85,6 +85,7 @@ export default function NewPartForm({ userBikes, userRides, addUserSuspension, u
       addUserSuspension([newSuspensionData])
     }
     
+    setPagesFetched(fetchCount)
     navigate('/dashboard')
   }
 
