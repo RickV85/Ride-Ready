@@ -10,10 +10,11 @@ export default function Container({ userSuspension, setSelectedSuspension }) {
   useEffect(() => {
     if (userSuspension) {
       const suspensionTiles = userSuspension.map((sus) => {
-        return <Tile susDetails={sus} setSelectedSuspension={setSelectedSuspension} key={`${sus.susData.name}+${sus.rebuildLife}`} />
+        return <Tile susDetails={sus} setSelectedSuspension={setSelectedSuspension} id={`${sus.onBike.id}+${sus.susData.id}`} key={`${sus.onBike.id}+${sus.susData.id}`} />
       })
       setSusTiles(suspensionTiles);
     }
+    // eslint-disable-next-line
   }, [userSuspension])
 
 
