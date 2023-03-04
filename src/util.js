@@ -75,6 +75,7 @@ export const calculateRebuildLife = (newSus, rebuildDate, userRides, onBike, bik
 }
 
 export const isOldestRideBeforeRebuild = (rides, rebuildDate) => {
+  if (!rides) return;
   let today = moment().format()
   const oldestRideDate = rides.reduce((oldest, ride) => {
     if (moment(ride.ride_date).isBefore(oldest)) {

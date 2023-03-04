@@ -103,7 +103,7 @@ export default function NewPartForm({ userBikes, userRides, addUserSuspension, u
           <option key={'0'} value={''} disabled>Choose your suspension</option>
           {suspensionOptions}
         </select>
-        <label htmlFor="suspension-select">When was it last rebuilt?</label>
+        <label htmlFor="lastRebuild">When was it last rebuilt?</label>
         <input name="lastRebuild" type={'date'} max={new Date().toLocaleDateString('fr-ca')} 
           value={selectedRebuildDate} onChange={(event) => setSelectedRebuildDate(event.target.value)}
         />

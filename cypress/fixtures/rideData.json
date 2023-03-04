@@ -1,0 +1,142 @@
+[
+  {
+    "id": 8551479095,
+    "ride_duration": 4027,
+    "ride_distance": 9746.3,
+    "ride_date": "2023-02-12T18:32:22Z",
+    "gear_id": "b9082682"
+  },
+  {
+    "id": 8522604553,
+    "ride_duration": 1592,
+    "ride_distance": 11453.8,
+    "ride_date": "2023-02-07T19:11:11Z",
+    "gear_id": "b1979857"
+  },
+  {
+    "id": 8228820400,
+    "ride_duration": 1661,
+    "ride_distance": 12114.6,
+    "ride_date": "2022-12-09T19:11:22Z",
+    "gear_id": "b1979857"
+  },
+  {
+    "id": 8212287876,
+    "ride_duration": 1553,
+    "ride_distance": 11959.5,
+    "ride_date": "2022-12-05T18:59:01Z",
+    "gear_id": "b1979857"
+  },
+  {
+    "id": 8182140706,
+    "ride_duration": 2033,
+    "ride_distance": 9722.5,
+    "ride_date": "2022-11-28T19:04:03Z",
+    "gear_id": "b1979857"
+  },
+  {
+    "id": 8147104581,
+    "ride_duration": 2783,
+    "ride_distance": 7464.1,
+    "ride_date": "2022-11-20T21:29:24Z",
+    "gear_id": "b1979857"
+  },
+  {
+    "id": 8098440542,
+    "ride_duration": 1007,
+    "ride_distance": 4331.6,
+    "ride_date": "2022-11-08T19:08:55Z",
+    "gear_id": "b1979857"
+  },
+  {
+    "id": 8048970943,
+    "ride_duration": 1634,
+    "ride_distance": 13068.5,
+    "ride_date": "2022-10-31T18:16:42Z",
+    "gear_id": "b1979857"
+  },
+  {
+    "id": 8033425436,
+    "ride_duration": 1554,
+    "ride_distance": 11524.7,
+    "ride_date": "2022-10-28T17:59:25Z",
+    "gear_id": "b1979857"
+  },
+  {
+    "id": 7989520845,
+    "ride_duration": 1403,
+    "ride_distance": 12109.9,
+    "ride_date": "2022-10-19T18:18:01Z",
+    "gear_id": "b1979857"
+  },
+  {
+    "id": 7979984020,
+    "ride_duration": 1573,
+    "ride_distance": 11633.1,
+    "ride_date": "2022-10-17T18:16:09Z",
+    "gear_id": "b1979857"
+  },
+  {
+    "id": 7953133090,
+    "ride_duration": 1457,
+    "ride_distance": 11509.9,
+    "ride_date": "2022-10-12T14:05:43Z",
+    "gear_id": "b1979857"
+  },
+  {
+    "id": 7941432850,
+    "ride_duration": 1512,
+    "ride_distance": 11493.5,
+    "ride_date": "2022-10-10T13:28:56Z",
+    "gear_id": "b1979857"
+  },
+  {
+    "id": 7927012314,
+    "ride_duration": 5529,
+    "ride_distance": 18953.2,
+    "ride_date": "2022-10-07T16:07:29Z",
+    "gear_id": "b9082682"
+  },
+  {
+    "id": 7896454766,
+    "ride_duration": 4459,
+    "ride_distance": 12373.2,
+    "ride_date": "2022-10-01T18:04:33Z",
+    "gear_id": "b9082682"
+  },
+  {
+    "id": 7891525977,
+    "ride_duration": 8787,
+    "ride_distance": 40483.6,
+    "ride_date": "2022-09-30T16:14:07Z",
+    "gear_id": "b9082682"
+  },
+  {
+    "id": 7886928475,
+    "ride_duration": 8149,
+    "ride_distance": 45794.9,
+    "ride_date": "2022-09-29T16:51:49Z",
+    "gear_id": "b9082682"
+  },
+  {
+    "id": 7876889079,
+    "ride_duration": 8479,
+    "ride_distance": 24354.3,
+    "ride_date": "2022-09-27T16:40:30Z",
+    "gear_id": "b9082682"
+  },
+  {
+    "id": 7867942581,
+    "ride_duration": 3183,
+    "ride_distance": 9646.8,
+    "ride_date": "2022-09-25T20:01:46Z",
+    "gear_id": "b9082682"
+  },
+  {
+    "id": 7867942540,
+    "ride_duration": 6393,
+    "ride_distance": 18406,
+    "ride_date": "2022-09-24T16:39:14Z",
+    "gear_id": "b9082682"
+  } 
+]
