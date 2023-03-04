@@ -11,7 +11,7 @@ export default function Dashboard({ userSuspension, setSelectedSuspension }) {
       <h1 className="site-logo">Ride Ready</h1>
       <Container userSuspension={userSuspension} setSelectedSuspension={setSelectedSuspension} />
       <NavLink className="add-suspension-link" to="add-new-part">
-        <button>Add new suspension</button>
+        <button id="dash-add-sus">Add new suspension</button>
       </NavLink>
     </section>
   )

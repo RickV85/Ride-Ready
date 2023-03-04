@@ -1,5 +1,4 @@
 import changeErrorMessage from "./Components/App/App";
-import { useNavigate } from "react-router-dom";
 
 const getAccessToken = (userAuthToken) => {
   return fetch(`https://www.strava.com/oauth/token`, {
@@ -21,7 +20,6 @@ const getAccessToken = (userAuthToken) => {
       Please return to the home page and try logging in again. 
       ${error}`
     )
-    useNavigate('/error', { replace: true });
   })
 }
 
@@ -41,7 +39,6 @@ const getUserActivities = (pageNum, userAccessToken) => {
       Please return to the home page and try logging in again. 
       ${error}`
     );
-    useNavigate('/error', { replace: true });
   })
 }
 
@@ -62,7 +59,6 @@ const getUserGearDetails = (id, userAccessToken) => {
       Please return to the home page and try logging in again. 
       ${error}`
     );
-    useNavigate('/error', { replace: true });
   })
 }
 

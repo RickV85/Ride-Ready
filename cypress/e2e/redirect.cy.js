@@ -30,8 +30,7 @@ describe('Redirect', () => {
 
     cy.intercept('GET',`https://www.strava.com/api/v3/gear/b1979857`, {
       fixture: 'AllezData.json'
-    }
-    )
+    })
 
     cy.url().should('eq', 'http://localhost:3000/dashboard')
   })

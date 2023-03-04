@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Route, Routes } from "react-router-dom";
+import React, { useState } from 'react';
+import { Route, Routes, useNavigate } from "react-router-dom";
 import './App.css';
 import Home from '../Home/Home';
 import Redirect from '../Redirect/Redirect';
@@ -18,6 +18,7 @@ export default function App() {
   const [selectedSuspension, setSelectedSuspension] = useState(null);
   const [errorMessage, setErrorMessage] = useState('');
   const [pagesFetched, setPagesFetched] = useState(1);
+  const navigate = useNavigate();
 
   const addAuthToken = (token) => {
     setUserAuthToken(token);
@@ -41,13 +42,8 @@ export default function App() {
 
   const changeErrorMessage = (errorMessage) => {
     setErrorMessage(errorMessage);
+    navigate('/error', { replace: true });
   }
-
-  useEffect(() => {
-    if (window.Cypress) {
-        window.store= `${App}`;
-    }
-  },[])
 
   return (
     <main className='app-background'>
