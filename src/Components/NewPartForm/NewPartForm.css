@@ -32,4 +32,9 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
+}
+
+.fetch-ride-wait-message {
+  color: #F26419;
+  font-weight: 700;
 }/*# sourceMappingURL=NewPartForm.css.map */

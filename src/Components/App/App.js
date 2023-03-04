@@ -88,8 +88,8 @@ export default function App() {
       />
       <Route path='/error' element={ 
         <Error 
-        errorMessage={errorMessage} 
-        changeErrorMessage={changeErrorMessage}
+          errorMessage={errorMessage} 
+          changeErrorMessage={changeErrorMessage}
         />} 
       />
     </Routes>

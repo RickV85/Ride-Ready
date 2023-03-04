@@ -13,9 +13,12 @@ export default function NewPartForm({ userBikes, userRides, addUserSuspension, u
   const [selectedBike, setSelectedBike] = useState('');
   const [selectedSus, setSelectedSus] = useState('');
   const [selectedRebuildDate, setSelectedRebuildDate] = useState('');
-  const [fetchPageNumber, setFetchPageNumber] = useState(2);
+  const [fetchPageNumber, setFetchPageNumber] = useState(1);
+  const [fetchCount, setFetchCount] = useState(1);
   const [submitDisabled, setSubmitDisabled] = useState(false);
   const navigate = useNavigate();
+
+  
 
   useEffect(() => {
     if (bikeOptions) {
@@ -30,14 +33,25 @@ export default function NewPartForm({ userBikes, userRides, addUserSuspension, u
     }
   }, [bikeOptions])
 
+
+  const suspensionOptions = suspensionData.map((sus) => {
+    return (
+      <option key={sus.id} value={sus.id}>{sus.name}</option>
+    )
+  })
+
+  // Hit 429 error - too many req in 15 min -  by paging back quickly
+  // Added conditional and state for fetched page count to stop too many requests
+  // Button is disabled, but may need a loading message as it can take about 5 sec
   useEffect(() => {
-    setSubmitDisabled(false);
     let moreRidesNeeded;
     if(selectedRebuildDate) {
       moreRidesNeeded = isOldestRideBeforeRebuild(userRides, selectedRebuildDate);
     }
     if (moreRidesNeeded === false) {
+      if (fetchCount !== fetchPageNumber) return;
       setSubmitDisabled(true);
+      setFetchPageNumber(fetchPageNumber + 1)
       getUserActivities(fetchPageNumber, userAccessToken)
       .then((activities) => {
         const rideActivities = filterRideActivities(activities);
@@ -45,17 +59,12 @@ export default function NewPartForm({ userBikes, userRides, addUserSuspension, u
         if (cleanedRides) {
           addUserRides([...userRides, ...cleanedRides])
         }
+        setFetchCount(fetchCount + 1);
+        setSubmitDisabled(false);
       })
-      setFetchPageNumber(fetchPageNumber + 1)
     }
   // eslint-disable-next-line 
   }, [selectedRebuildDate, userRides])
-
-  const suspensionOptions = suspensionData.map((sus) => {
-    return (
-      <option key={sus.id} value={sus.id}>{sus.name}</option>
-    )
-  })
 
   const handleSubmit = () => {
     if (!(selectedBike && selectedSus && selectedRebuildDate)) {
@@ -82,6 +91,14 @@ export default function NewPartForm({ userBikes, userRides, addUserSuspension, u
     navigate('/dashboard')
   }
 
+const displayWaitMessage = () => {
+  if (fetchCount !== fetchPageNumber) {
+    return <p className="fetch-ride-wait-message">Please wait for data to load.<br/>
+      This could take up to 15 seconds
+    </p>
+  }
+}
+
   return (
     <section className="new-part-form-section">
       <h1 className="site-logo">Ride Ready</h1>
@@ -105,6 +122,11 @@ export default function NewPartForm({ userBikes, userRides, addUserSuspension, u
         <button onClick={() => handleSubmit()} disabled={submitDisabled}>Submit</button>
         <button onClick={() => navigate('/dashboard')} >Back</button>
       </div>
+      {fetchCount !== fetchPageNumber && 
+        <p className="fetch-ride-wait-message">
+        Please wait for data to load.<br/>
+        This could take up to 15 seconds</p>
+      }
     </section>
   )
 }

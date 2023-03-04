@@ -27,3 +27,8 @@
 .newpartform-button-section {
   @include centered(row, center)
 }
+
+.fetch-ride-wait-message {
+  color: $darkOrange;
+  font-weight: 700;
+}
