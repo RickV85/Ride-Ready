@@ -60,7 +60,6 @@ export default function Redirect({
   }, [userRides])
 
   useEffect(() => {
-    // console.log(userGear)
     if (!userGear) {
       return;
     } 
