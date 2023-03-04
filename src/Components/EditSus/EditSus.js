@@ -53,8 +53,9 @@ export default function EditSus({ addUserSuspension, userSuspension, setSelected
     }
 
     const modifiedSus = editSusDetails;
+    console.log('modifiedSus', modifiedSus)
     modifiedSus.rebuildDate = newRebuildDate;
-    modifiedSus.rebuildLife = calculateRebuildLife(modifiedSus, newRebuildDate, userRides, modifiedSus.onBike.id, userBikes);
+    modifiedSus.rebuildLife = calculateRebuildLife(modifiedSus.susData.id, newRebuildDate, userRides, modifiedSus.onBike.id, userBikes);
     let newUserSusArr = userSuspension;
     newUserSusArr.splice(editSusIndex, 1, modifiedSus);
     addUserSuspension(newUserSusArr);
