@@ -1,15 +1,28 @@
+import '../fixtures/rideData.json'
+
 describe('Redirect', () => {
   beforeEach(() => {
-    cy.visit('https://www.strava.com/oauth/authorize?state=&code=5a2992dba1725717bee2103eb0884e6de92d716e&scope=read,activity:read_all')
-    cy.intercept('POST', `https://www.strava.com/oauth/token`, {
-      statusCode: 201,
-      body: {
-        response: 'AccessTokenRequestStubbed'
-      }
-    })
+    cy.visit('http://localhost:3000/redirect')
   })
 
-  it('Should stub', () => {
+  it('Should display site title, gif and message', () => {
+    cy.get('h1').should('have.text', 'Ride Ready')
+    cy.get('img[class="loading-gif"]').should('be.visible')
+    cy.get('p[class="loading-message"]').should('be.visible')
+  })
+
+  it('Should redirect to /dashboard once rides are loaded', () => {
+    cy.visit('http://localhost:3000/redirect/exchange_token?state=&code=97dd82f961714a09adb14e47b242a23103c4c202&scope=read,activity:read_all')
+    cy.intercept('POST', `https://www.strava.com/oauth/token`, {
+      statusCode: 200,
+      body: {
+        access_token: 'accessToken'
+      }
+      }
+    )
+    cy.intercept('GET',`https://www.strava.com/api/v3/athlete/activities?page=1&per_page=200`, {
+      fixture: 'rideData.json'
+    })
     
   })
 

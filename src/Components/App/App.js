@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Route, Routes } from "react-router-dom";
 import './App.css';
 import Home from '../Home/Home';
@@ -42,6 +42,12 @@ export default function App() {
   const changeErrorMessage = (errorMessage) => {
     setErrorMessage(errorMessage);
   }
+
+  useEffect(() => {
+    if (window.Cypress) {
+        window.store= `${App}`;
+    }
+  },[])
 
   return (
     <main className='app-background'>

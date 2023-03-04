@@ -20,7 +20,6 @@ export default function Redirect({
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.log("fired", window.location)
     if (testForDeniedPermission(window.location.search)) {
       changeErrorMessage(`Please allow this app access to all activity data on Strava's login screen. 
         You are being redirected to the home page.`)
