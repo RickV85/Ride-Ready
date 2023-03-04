@@ -7,10 +7,10 @@ import { NavLink } from "react-router-dom";
 
 export default function Tile({ susDetails, setSelectedSuspension, id }) {
 
-  const rebuildLifeMessage = (susDetails.rebuildLife * 100).toFixed(2);
+  const rebuildLifeMessage = (susDetails.rebuildLife * 100).toFixed(0);
   const bikeDisplayMessage = () => {
     if (susDetails.onBike.brand_name && susDetails.onBike.model_name) {
-      return `On your ${susDetails.onBike.brand_name} ${susDetails.onBike.model_name}`;
+      return `on your ${susDetails.onBike.brand_name} ${susDetails.onBike.model_name}`;
     } else {
       return '';
     }

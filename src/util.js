@@ -85,3 +85,13 @@ export const isOldestRideBeforeRebuild = (rides, rebuildDate) => {
   const lastRideBeforeRebuild = moment(oldestRideDate).isBefore(rebuildDate);
   return lastRideBeforeRebuild;
 }
+
+export const findSusIndexByID = (id, susOptions) => {
+  const splitIDArr = id.split('+');
+  const bikeID = splitIDArr[0];
+  const susID = +(splitIDArr[1]);
+  const foundSusIndex = susOptions.findIndex((sus) => {
+    return sus.onBike.id === bikeID && sus.susData.id === susID
+})
+  return foundSusIndex;
+}

@@ -3,10 +3,23 @@
 .edit-part-form-section {
   height: 100vh;
   width: 100vw;
-  @include centered(column, center);
+  @include centered(column, space-between);
 
   button {
     width: 20vw;
   }
 }
 
+.edit-spacer {
+  height: 10vh;
+}
+
+.edit-sus-details {
+  @include centered(column, space-between);
+  width: 90vw;
+  height: 35vh;
+}
+
+.edit-section-buttons {
+  @include centered(row, center)
+}

@@ -91,14 +91,6 @@ export default function NewPartForm({ userBikes, userRides, addUserSuspension, u
     navigate('/dashboard')
   }
 
-const displayWaitMessage = () => {
-  if (fetchCount !== fetchPageNumber) {
-    return <p className="fetch-ride-wait-message">Please wait for data to load.<br/>
-      This could take up to 15 seconds
-    </p>
-  }
-}
-
   return (
     <section className="new-part-form-section">
       <h1 className="site-logo">Ride Ready</h1>

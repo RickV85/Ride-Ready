@@ -77,7 +77,8 @@ export default function App() {
       />
       <Route path='/dashboard/edit' element={ <EditSus 
           addUserSuspension={addUserSuspension}
-          userSuspension={userSuspension} 
+          userSuspension={userSuspension}
+          setSelectedSuspension={setSelectedSuspension} 
           selectedSuspension={selectedSuspension} 
         />}
       />
