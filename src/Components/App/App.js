@@ -6,6 +6,8 @@ import Redirect from '../Redirect/Redirect';
 import Error from '../Error/Error';
 import Dashboard from '../Dashboard/Dashboard'
 import NewPartForm from '../NewPartForm/NewPartForm';
+import EditSus from '../EditSus/EditSus';
+import DeleteSus from '../DeleteSus/DeleteSus';
 
 export default function App() {
   const [userAuthToken, setUserAuthToken] = useState(null);
@@ -13,7 +15,9 @@ export default function App() {
   const [userBikes, setUserBikes] = useState(null);
   const [userRides, setUserRides] = useState(null);
   const [userSuspension, setUserSuspension] = useState(null);
+  const [selectedSuspension, setSelectedSuspension] = useState(null);
   const [errorMessage, setErrorMessage] = useState('');
+  const [pagesFetched, setPagesFetched] = useState(1);
 
   const addAuthToken = (token) => {
     setUserAuthToken(token);
@@ -59,27 +63,49 @@ export default function App() {
       <Route path='/dashboard' element={ 
         <Dashboard 
             userSuspension={userSuspension}
+            setSelectedSuspension={setSelectedSuspension}
         />} 
       />
       <Route path='/dashboard/add-new-part' element={ 
         <NewPartForm 
+          userAccessToken={userAccessToken} 
           userBikes={userBikes} 
-          userRides={userRides}
           addUserSuspension={addUserSuspension}
           userSuspension={userSuspension}
-          userAccessToken={userAccessToken} 
+          userRides={userRides}
           addUserRides={addUserRides}
+          pagesFetched={pagesFetched}
+          setPagesFetched={setPagesFetched}
         />} 
+      />
+      <Route path='/dashboard/edit' element={ 
+        <EditSus 
+          addUserSuspension={addUserSuspension}
+          userSuspension={userSuspension}
+          setSelectedSuspension={setSelectedSuspension} 
+          selectedSuspension={selectedSuspension} 
+          userAccessToken={userAccessToken}
+          userRides={userRides}
+          addUserRides={addUserRides}
+          pagesFetched={pagesFetched}
+          setPagesFetched={setPagesFetched}
+          userBikes={userBikes}
+        />}
+      />
+      <Route path='/dashboard/delete' element={ <DeleteSus  
+          addUserSuspension={addUserSuspension}
+          userSuspension={userSuspension}
+          setSelectedSuspension={setSelectedSuspension} 
+          selectedSuspension={selectedSuspension}
+        />}
       />
       <Route path='/error' element={ 
         <Error 
-        errorMessage={errorMessage} 
-        changeErrorMessage={changeErrorMessage}
-        /> } 
+          errorMessage={errorMessage} 
+          changeErrorMessage={changeErrorMessage}
+        />} 
       />
     </Routes>
     </main>
   );
 }
-
-// export { App, changeErrorMessage }  ;

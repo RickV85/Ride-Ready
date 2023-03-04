@@ -6,16 +6,19 @@ import { calculateRebuildLife, isOldestRideBeforeRebuild, filterRideActivities, 
 import { getUserActivities } from '../../APICalls';
 import { useNavigate } from "react-router-dom";
 
-export default function NewPartForm({ userBikes, userRides, addUserSuspension, userSuspension, userAccessToken, addUserRides }) {
+export default function NewPartForm({ userBikes, userRides, addUserSuspension, userSuspension, userAccessToken, addUserRides, pagesFetched, setPagesFetched }) {
   // eslint-disable-next-line
   const [bikeOptions, setBikeOptions] = useState(userBikes);
   const [bikeDropdownOptions, setBikeDropdownOptions] = useState([]);
   const [selectedBike, setSelectedBike] = useState('');
   const [selectedSus, setSelectedSus] = useState('');
   const [selectedRebuildDate, setSelectedRebuildDate] = useState('');
-  const [fetchPageNumber, setFetchPageNumber] = useState(2);
+  const [fetchPageNumber, setFetchPageNumber] = useState(pagesFetched);
+  const [fetchCount, setFetchCount] = useState(pagesFetched);
   const [submitDisabled, setSubmitDisabled] = useState(false);
   const navigate = useNavigate();
+
+  
 
   useEffect(() => {
     if (bikeOptions) {
@@ -30,14 +33,22 @@ export default function NewPartForm({ userBikes, userRides, addUserSuspension, u
     }
   }, [bikeOptions])
 
+
+  const suspensionOptions = suspensionData.map((sus) => {
+    return (
+      <option key={sus.id} value={sus.id}>{sus.name}</option>
+    )
+  })
+
   useEffect(() => {
-    setSubmitDisabled(false);
     let moreRidesNeeded;
     if(selectedRebuildDate) {
       moreRidesNeeded = isOldestRideBeforeRebuild(userRides, selectedRebuildDate);
     }
     if (moreRidesNeeded === false) {
+      if (fetchCount !== fetchPageNumber) return;
       setSubmitDisabled(true);
+      setFetchPageNumber(fetchPageNumber + 1)
       getUserActivities(fetchPageNumber, userAccessToken)
       .then((activities) => {
         const rideActivities = filterRideActivities(activities);
@@ -45,17 +56,12 @@ export default function NewPartForm({ userBikes, userRides, addUserSuspension, u
         if (cleanedRides) {
           addUserRides([...userRides, ...cleanedRides])
         }
+        setFetchCount(fetchCount + 1);
+        setSubmitDisabled(false);
       })
-      setFetchPageNumber(fetchPageNumber + 1)
     }
   // eslint-disable-next-line 
   }, [selectedRebuildDate, userRides])
-
-  const suspensionOptions = suspensionData.map((sus) => {
-    return (
-      <option key={sus.id} value={sus.id}>{sus.name}</option>
-    )
-  })
 
   const handleSubmit = () => {
     if (!(selectedBike && selectedSus && selectedRebuildDate)) {
@@ -68,7 +74,7 @@ export default function NewPartForm({ userBikes, userRides, addUserSuspension, u
 
     const newSuspensionData = {
       'susData': selectedSuspensionName,
-      'onBike': selectedBikeName,
+      'onBike': selectedBikeName || {id: Date.now().toString(), brand_name: "Unlisted",  model_name:"bike"},
       'rebuildDate': selectedRebuildDate,
       'rebuildLife': calculateRebuildLife(selectedSus, selectedRebuildDate, userRides, selectedBike, userBikes)
     }
@@ -79,6 +85,7 @@ export default function NewPartForm({ userBikes, userRides, addUserSuspension, u
       addUserSuspension([newSuspensionData])
     }
     
+    setPagesFetched(fetchCount)
     navigate('/dashboard')
   }
 
@@ -101,7 +108,15 @@ export default function NewPartForm({ userBikes, userRides, addUserSuspension, u
           value={selectedRebuildDate} onChange={(event) => setSelectedRebuildDate(event.target.value)}
         />
       </form>
-      <button onClick={() => handleSubmit()} disabled={submitDisabled}>Submit</button>
+      <div className="newpartform-button-section">
+        <button onClick={() => handleSubmit()} disabled={submitDisabled}>Submit</button>
+        <button onClick={() => navigate('/dashboard')} >Back</button>
+      </div>
+      {fetchCount !== fetchPageNumber && 
+        <p className="fetch-ride-wait-message">
+        Please wait for data to load.<br/>
+        This could take up to 15 seconds</p>
+      }
     </section>
   )
 }
