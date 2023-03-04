@@ -40,9 +40,6 @@ export default function NewPartForm({ userBikes, userRides, addUserSuspension, u
     )
   })
 
-  // Hit 429 error - too many req in 15 min -  by paging back quickly
-  // Added conditional and state for fetched page count to stop too many requests
-  // Button is disabled, but may need a loading message as it can take about 5 sec
   useEffect(() => {
     let moreRidesNeeded;
     if(selectedRebuildDate) {
@@ -77,7 +74,7 @@ export default function NewPartForm({ userBikes, userRides, addUserSuspension, u
 
     const newSuspensionData = {
       'susData': selectedSuspensionName,
-      'onBike': selectedBikeName || {id: Date.now(), brand_name: "Unlisted",  model_name:"bike"},
+      'onBike': selectedBikeName || {id: Date.now().toString(), brand_name: "Unlisted",  model_name:"bike"},
       'rebuildDate': selectedRebuildDate,
       'rebuildLife': calculateRebuildLife(selectedSus, selectedRebuildDate, userRides, selectedBike, userBikes)
     }

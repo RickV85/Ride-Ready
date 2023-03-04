@@ -18,6 +18,10 @@ export default function EditSus({ addUserSuspension, userSuspension, setSelected
   }, [selectedSuspension, userSuspension])
 
   const handleSubmit = () => {
+    if (!newRebuildDate) {
+      alert("Please select a date before submitting")
+      return;
+    }
     const modifiedSus = editSusDetails;
     modifiedSus.rebuildDate = newRebuildDate;
     let newUserSusArr = userSuspension;
@@ -36,11 +40,14 @@ export default function EditSus({ addUserSuspension, userSuspension, setSelected
         }
         {editSusDetails && <h2>{`Currently: ${moment(editSusDetails.rebuildDate).format('ll')}`}</h2>}
         <form>
-          <input type="date" value={newRebuildDate} onChange={(event) => setNewRebuildDate(event.target.value)}/>
+          <input type="date" value={newRebuildDate} max={new Date().toLocaleDateString('fr-ca')} onChange={(event) => setNewRebuildDate(event.target.value)}/>
         </form>
         <div className="edit-section-buttons">
           <button onClick={() => handleSubmit()}>Submit</button>
-          <button onClick={() => navigate('/dashboard')}>Back</button>
+          <button onClick={() => {
+            setSelectedSuspension(null);
+            navigate('/dashboard');
+          }}>Back</button>
         </div>
       </div>
       <div className="edit-spacer"></div>

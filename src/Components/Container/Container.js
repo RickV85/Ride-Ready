@@ -20,7 +20,7 @@ export default function Container({ userSuspension, setSelectedSuspension }) {
 
   return (
     <section className="container">
-      {!userSuspension && noSusMessage}
+      {(userSuspension === null || userSuspension.length === 0) && noSusMessage}
       {susTiles}
     </section>
   )

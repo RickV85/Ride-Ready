@@ -85,6 +85,8 @@ export default function App() {
       <Route path='/dashboard/delete' element={ <DeleteSus  
           addUserSuspension={addUserSuspension}
           userSuspension={userSuspension}
+          setSelectedSuspension={setSelectedSuspension} 
+          selectedSuspension={selectedSuspension}
         />}
       />
       <Route path='/error' element={ 
