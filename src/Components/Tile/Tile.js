@@ -2,16 +2,19 @@ import React from "react";
 import PropTypes from 'prop-types';
 import './Tile.css'
 import moment from 'moment';
+import { NavLink } from "react-router-dom";
 
 
-export default function Tile({ susDetails }) {
+export default function Tile({ susDetails, setSelectedSuspension }) {
 
   const rebuildLifeMessage = (susDetails.rebuildLife * 100).toFixed(2);
   const bikeDisplayMessage = () => {
-    if (susDetails.onBike.brand_name && susDetails.onBike.brand_name) {
-      return `On your ${susDetails.onBike.brand_name} ${susDetails.onBike.brand_name}`;
+    console.log('susDetails.onBike', susDetails.onBike)
+    console.log('susDetails', susDetails)
+    if (susDetails.onBike.brand_name && susDetails.onBike.model_name) {
+      return `On your ${susDetails.onBike.brand_name} ${susDetails.onBike.model_name}`;
     } else {
-      return;
+      return '';
     }
   }
 
@@ -22,8 +25,12 @@ export default function Tile({ susDetails }) {
       <h3>{`${rebuildLifeMessage}% service life remaining`}</h3>
       <p>{`Last serviced: ${moment(susDetails.rebuildDate).format('ll')}`}</p>
       <div className="tile-button-section">
-        <button>Update service date</button>
-        <button>Delete suspension</button>
+        <NavLink to={'/dashboard/edit'} >
+          <button onClick={() => setSelectedSuspension(susDetails)} >Update service date</button>
+        </NavLink>
+        <NavLink to={'/dashboard/delete'} >
+          <button onClick={() => setSelectedSuspension(susDetails)} >Delete suspension</button>
+        </NavLink>
       </div>
     </article>
   )

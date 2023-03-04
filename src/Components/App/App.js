@@ -6,6 +6,8 @@ import Redirect from '../Redirect/Redirect';
 import Error from '../Error/Error';
 import Dashboard from '../Dashboard/Dashboard'
 import NewPartForm from '../NewPartForm/NewPartForm';
+import EditSus from '../EditSus/EditSus';
+import DeleteSus from '../DeleteSus/DeleteSus';
 
 export default function App() {
   const [userAuthToken, setUserAuthToken] = useState(null);
@@ -13,6 +15,7 @@ export default function App() {
   const [userBikes, setUserBikes] = useState(null);
   const [userRides, setUserRides] = useState(null);
   const [userSuspension, setUserSuspension] = useState(null);
+  const [selectedSuspension, setSelectedSuspension] = useState(null);
   const [errorMessage, setErrorMessage] = useState('');
 
   const addAuthToken = (token) => {
@@ -59,6 +62,7 @@ export default function App() {
       <Route path='/dashboard' element={ 
         <Dashboard 
             userSuspension={userSuspension}
+            setSelectedSuspension={setSelectedSuspension}
         />} 
       />
       <Route path='/dashboard/add-new-part' element={ 
@@ -71,15 +75,24 @@ export default function App() {
           addUserRides={addUserRides}
         />} 
       />
+      <Route path='/dashboard/edit' element={ <EditSus 
+          addUserSuspension={addUserSuspension}
+          userSuspension={userSuspension} 
+          selectedSuspension={selectedSuspension} 
+        />}
+      />
+      <Route path='/dashboard/delete' element={ <DeleteSus  
+          addUserSuspension={addUserSuspension}
+          userSuspension={userSuspension}
+        />}
+      />
       <Route path='/error' element={ 
         <Error 
         errorMessage={errorMessage} 
         changeErrorMessage={changeErrorMessage}
-        /> } 
+        />} 
       />
     </Routes>
     </main>
   );
 }
-
-// export { App, changeErrorMessage }  ;

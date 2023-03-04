@@ -68,7 +68,7 @@ export default function NewPartForm({ userBikes, userRides, addUserSuspension, u
 
     const newSuspensionData = {
       'susData': selectedSuspensionName,
-      'onBike': selectedBikeName,
+      'onBike': selectedBikeName || {id: Date.now(), brand_name: "Unlisted",  model_name:"bike"},
       'rebuildDate': selectedRebuildDate,
       'rebuildLife': calculateRebuildLife(selectedSus, selectedRebuildDate, userRides, selectedBike, userBikes)
     }
