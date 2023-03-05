@@ -16,9 +16,8 @@ export default function NewPartForm({ userBikes, userRides, addUserSuspension, u
   const [fetchPageNumber, setFetchPageNumber] = useState(pagesFetched);
   const [fetchCount, setFetchCount] = useState(pagesFetched);
   const [submitDisabled, setSubmitDisabled] = useState(false);
+  const [submitError, setSubmitError] = useState(false);
   const navigate = useNavigate();
-
-  
 
   useEffect(() => {
     if (bikeOptions) {
@@ -47,6 +46,7 @@ export default function NewPartForm({ userBikes, userRides, addUserSuspension, u
     }
     if (moreRidesNeeded === false) {
       if (fetchCount !== fetchPageNumber) return;
+      if (fetchCount > 20) return;
       setSubmitDisabled(true);
       setFetchPageNumber(fetchPageNumber + 1)
       getUserActivities(fetchPageNumber, userAccessToken)
@@ -65,7 +65,8 @@ export default function NewPartForm({ userBikes, userRides, addUserSuspension, u
 
   const handleSubmit = () => {
     if (!(selectedBike && selectedSus && selectedRebuildDate)) {
-      alert("Please fill out all forms before submitting suspension")
+      setSubmitError(true)
+      setTimeout(() => setSubmitError(false), 3000)
       return;
     }
 
@@ -112,8 +113,9 @@ export default function NewPartForm({ userBikes, userRides, addUserSuspension, u
         <button onClick={() => handleSubmit()} disabled={submitDisabled}>Submit</button>
         <button onClick={() => navigate('/dashboard')} >Back</button>
       </div>
+      {submitError && <p className="error-wait-message">Please fill out all forms before submitting</p>}
       {fetchCount !== fetchPageNumber && 
-        <p className="fetch-ride-wait-message">
+        <p className="error-wait-message">
         Please wait for data to load.<br/>
         This could take up to 15 seconds</p>
       }
