@@ -24,7 +24,7 @@ export const cleanRideData = (rides) => {
       'ride_duration': ride.moving_time,
       'ride_distance': ride.distance,
       'ride_date': ride.start_date,
-      'gear_id': ride.gear_id,
+      'gear_id': ride.gear_id
     }
   })
   return cleanedRides;

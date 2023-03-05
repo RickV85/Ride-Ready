@@ -14,6 +14,19 @@ export default function DeleteSus({
   const navigate = useNavigate();
 
   useEffect(() => {
+    if (!selectedSuspension) {
+      const loadedSelection = JSON.parse((localStorage.getItem('selectedSuspension')))
+      setSelectedSuspension(loadedSelection)
+    }
+    if (!userSuspension) {
+      const loadedSus = JSON.parse(localStorage.getItem('userSuspension'));
+      addUserSuspension(loadedSus);
+    }
+    // eslint-disable-next-line
+  }, [])
+
+  useEffect(() => {
+    if (!(selectedSuspension || userSuspension)) return;
     const index = findSusIndexByID(selectedSuspension, userSuspension);
     setDeleteSusDetails(userSuspension[index]);
     setDeleteSusIndex(index);
@@ -24,6 +37,7 @@ export default function DeleteSus({
     let newUserSusArr = userSuspension;
     newUserSusArr.splice(deleteSusIndex, 1);
     addUserSuspension(newUserSusArr);
+    window.localStorage.setItem('userSuspension', JSON.stringify(newUserSusArr));
     setSelectedSuspension(null);
     navigate("/dashboard");
   };

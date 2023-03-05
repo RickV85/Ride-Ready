@@ -13,13 +13,16 @@ import { useNavigate } from "react-router-dom";
 
 export default function NewPartForm({
   userBikes,
+  addUserBikes,
   userRides,
   addUserSuspension,
   userSuspension,
   userAccessToken,
+  addAccessToken,
   addUserRides,
   pagesFetched,
   setPagesFetched,
+  changeErrorMessage
 }) {
   // eslint-disable-next-line
   const [bikeOptions, setBikeOptions] = useState(userBikes);
@@ -32,6 +35,23 @@ export default function NewPartForm({
   const [submitDisabled, setSubmitDisabled] = useState(false);
   const [submitError, setSubmitError] = useState(false);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!userBikes) {
+      const loadedBikes = JSON.parse(localStorage.getItem("userBikes"));
+      setBikeOptions(loadedBikes);
+      addUserBikes(loadedBikes);
+    }
+    if (!userRides) {
+      const loadedRides = JSON.parse(localStorage.getItem("userRides"));
+      addUserRides(loadedRides);
+    }
+    if (!userAccessToken) {
+      const loadedToken = JSON.parse(localStorage.getItem("userAccessToken"));
+      addAccessToken(loadedToken);
+    }
+    // eslint-disable-next-line
+  }, []);
 
   useEffect(() => {
     if (bikeOptions) {
@@ -75,18 +95,27 @@ export default function NewPartForm({
     }
     if (moreRidesNeeded === false) {
       if (fetchCount !== fetchPageNumber) return;
-      if (fetchCount > 20) return;
+      if (fetchCount > 10) return;
       setSubmitDisabled(true);
       setFetchPageNumber(fetchPageNumber + 1);
-      getUserActivities(fetchPageNumber, userAccessToken).then((activities) => {
-        const rideActivities = filterRideActivities(activities);
-        const cleanedRides = cleanRideData(rideActivities);
-        if (cleanedRides) {
-          addUserRides([...userRides, ...cleanedRides]);
-        }
-        setFetchCount(fetchCount + 1);
-        setSubmitDisabled(false);
-      });
+      getUserActivities(fetchPageNumber, userAccessToken)
+        .then((activities) => {
+          const rideActivities = filterRideActivities(activities);
+          const cleanedRides = cleanRideData(rideActivities);
+          if (cleanedRides) {
+            addUserRides([...userRides, ...cleanedRides]);
+            window.localStorage.setItem(
+              "userRides",
+              JSON.stringify([...userRides, ...cleanedRides])
+            );
+          }
+          setFetchCount(fetchCount + 1);
+          setSubmitDisabled(false);
+        })
+        .catch(() => {
+          changeErrorMessage(`An error occurred while fetching your rides. 
+      Please return to the home page and try logging in again.`);
+        });
     }
     // eslint-disable-next-line
   }, [selectedRebuildDate, userRides]);
@@ -101,9 +130,14 @@ export default function NewPartForm({
     const selectedSuspensionName = suspensionData.find(
       (sus) => sus.id === +selectedSus
     );
-    const selectedBikeName = bikeOptions.find(
-      (bike) => bike.id === selectedBike
-    );
+    let selectedBikeName;
+    if (bikeOptions) {
+      selectedBikeName = bikeOptions.find(
+        (bike) => bike.id === selectedBike
+      );
+    } else {
+      selectedBikeName = null;
+    }
 
     const newSuspensionData = {
       susData: selectedSuspensionName,
@@ -124,8 +158,16 @@ export default function NewPartForm({
 
     if (userSuspension) {
       addUserSuspension([...userSuspension, newSuspensionData]);
+      window.localStorage.setItem(
+        "userSuspension",
+        JSON.stringify([...userSuspension, newSuspensionData])
+      );
     } else {
       addUserSuspension([newSuspensionData]);
+      window.localStorage.setItem(
+        "userSuspension",
+        JSON.stringify([newSuspensionData])
+      );
     }
 
     setPagesFetched(fetchCount);

@@ -22,12 +22,18 @@ export default function Tile({ susDetails, setSelectedSuspension, id }) {
       <p>{`Last serviced: ${moment(susDetails.rebuildDate).format("ll")}`}</p>
       <div className="tile-button-section">
         <NavLink to={"/dashboard/edit"}>
-          <button onClick={() => setSelectedSuspension(id)}>
+          <button onClick={() => {
+            setSelectedSuspension(id)
+            window.localStorage.setItem('selectedSuspension', JSON.stringify(id))
+          }}>
             Update service date
           </button>
         </NavLink>
         <NavLink to={"/dashboard/delete"}>
-          <button onClick={() => setSelectedSuspension(id)}>
+          <button onClick={() => {
+            setSelectedSuspension(id)
+            window.localStorage.setItem('selectedSuspension', JSON.stringify(id))
+          }}>
             Delete suspension
           </button>
         </NavLink>

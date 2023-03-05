@@ -69,7 +69,10 @@ export default function App() {
           element={
             <Dashboard
               userSuspension={userSuspension}
+              addUserSuspension={addUserSuspension}
               setSelectedSuspension={setSelectedSuspension}
+              userBikes={userBikes}
+              addUserBikes={addUserBikes}
             />
           }
         />
@@ -78,7 +81,9 @@ export default function App() {
           element={
             <NewPartForm
               userAccessToken={userAccessToken}
+              addAccessToken={addAccessToken}
               userBikes={userBikes}
+              addUserBikes={addUserBikes}
               addUserSuspension={addUserSuspension}
               userSuspension={userSuspension}
               userRides={userRides}
@@ -97,11 +102,14 @@ export default function App() {
               setSelectedSuspension={setSelectedSuspension}
               selectedSuspension={selectedSuspension}
               userAccessToken={userAccessToken}
+              addAccessToken={addAccessToken}
               userRides={userRides}
               addUserRides={addUserRides}
               pagesFetched={pagesFetched}
               setPagesFetched={setPagesFetched}
               userBikes={userBikes}
+              addUserBikes={addUserBikes}
+              changeErrorMessage={changeErrorMessage}
             />
           }
         />

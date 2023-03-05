@@ -45,6 +45,10 @@ export default function Redirect({
     getAccessToken(userAuthToken)
       .then((data) => {
         addAccessToken(data.access_token);
+        window.localStorage.setItem(
+          "userAccessToken",
+          JSON.stringify(data.access_token)
+        );
       })
       .catch(() => {
         changeErrorMessage(`An error occurred while requesting an access token. 
@@ -61,6 +65,10 @@ export default function Redirect({
         const cleanedRides = cleanRideData(rideActivities);
         if (cleanedRides) {
           addUserRides(cleanedRides);
+          window.localStorage.setItem(
+            "userRides",
+            JSON.stringify(cleanedRides)
+          );
         }
       })
       .catch(() => {
@@ -84,23 +92,24 @@ export default function Redirect({
     if (!userGear) {
       return;
     }
-    let fetchedGearDetail = [];
-    userGear.forEach((gearID) => {
-      getUserGearDetails(gearID, userAccessToken)
-        .then((details) => {
-          fetchedGearDetail.push({
-            id: details.id,
-            brand_name: details.brand_name,
-            model_name: details.model_name,
-          });
-        })
-        .catch(() => {
-          changeErrorMessage(`An error occurred while fetching your bike details. 
-        Please return to the home page and try logging in again.`);
-        });
-    });
-    addUserBikes(fetchedGearDetail);
-    setTimeout(navigate("/dashboard", { replace: true }));
+    Promise.all(
+      userGear.map((gearID) => getUserGearDetails(gearID, userAccessToken))
+    )
+      .then((details) => {
+        addUserBikes(
+          details.map((detail) => ({
+            id: detail.id,
+            brand_name: detail.brand_name,
+            model_name: detail.model_name,
+          }))
+        );
+      })
+      .catch(() => {
+        changeErrorMessage(`An error occurred while fetching your bike details. 
+      Please return to the home page and try logging in again.`);
+      });
+
+    navigate("/dashboard", { replace: true });
     // eslint-disable-next-line
   }, [userGear]);
 
