@@ -1,4 +1,4 @@
-describe('EditSus', () => {
+describe('template spec', () => {
   beforeEach(() => {
     cy.visit('http://localhost:3000/redirect/exchange_token?state=&code=97dd82f961714a09adb14e47b242a23103c4c202&scope=read,activity:read_all')
     cy.intercept('POST', `https://www.strava.com/oauth/token`, {
@@ -36,36 +36,27 @@ describe('EditSus', () => {
     cy.get('button').eq(0).click()
   })
 
-  it('Should navigate to the edit view when clicking the edit button on a tile', () => {
-    cy.get('button').eq(0).click()
-    cy.url().should('eq', 'http://localhost:3000/dashboard/edit')
+  it('Should navigate to the delete sus page when button is clicked on tile', () => {
+    cy.get('button').eq(1).click()
+
+    cy.url().should('eq', 'http://localhost:3000/dashboard/delete')
   })
 
-  it('Should not allow a submission if the date field has not been modified', () => {
-    cy.get('button').eq(0).click()
-
-    cy.get('button').eq(0).click()
-
-    cy.get('p[class="error-wait-message"]').should('be.visible')
-
-    cy.url().should('eq', 'http://localhost:3000/dashboard/edit')
+  it('Should show the name of the correct part selected to delete', () => {
+    cy.get('button').eq(1).click()
+    
+    cy.get('h3').should('contain', 'RockShox Fork')
+    cy.get('h3').should('contain', 'on Specialized Enduro')
   })
 
-  it('Should navigate to the dashboard on new date entry', () => {
-    cy.get('button').eq(0).click()
+  it('Should delete the selected tile and navigate to the dashboard', () => {
+    cy.get('button').eq(1).click()
 
-    cy.get('input').type('2022-10-10')
     cy.get('button').eq(0).click()
 
     cy.url().should('eq', 'http://localhost:3000/dashboard')
+
+    cy.get('article[class="tile"]').should('not.exist')
   })
 
-  it('Should update the last rebuild date shown on the selected tile', () => {
-    cy.get('button').eq(0).click()
-
-    cy.get('input').type('2022-10-10')
-    cy.get('button').eq(0).click()
-
-    cy.get('p').should('have.text', 'Last serviced: Oct 10, 2022')
-  })
 })

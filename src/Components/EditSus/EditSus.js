@@ -14,6 +14,7 @@ export default function EditSus({ addUserSuspension, userSuspension, setSelected
   const [fetchPageNumber, setFetchPageNumber] = useState(pagesFetched);
   const [fetchCount, setFetchCount] = useState(pagesFetched);
   const [submitDisabled, setSubmitDisabled] = useState(false);
+  const [submitError, setSubmitError] =useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -30,6 +31,7 @@ export default function EditSus({ addUserSuspension, userSuspension, setSelected
     }
     if (moreRidesNeeded === false) {
       if (fetchCount !== fetchPageNumber) return;
+      if (fetchCount > 20) return;
       setSubmitDisabled(true);
       setFetchPageNumber(fetchPageNumber + 1)
       getUserActivities(fetchPageNumber, userAccessToken)
@@ -48,7 +50,8 @@ export default function EditSus({ addUserSuspension, userSuspension, setSelected
 
   const handleSubmit = () => {
     if (!newRebuildDate) {
-      alert("Please select a date before submitting")
+      setSubmitError(true)
+      setTimeout(() => setSubmitError(false), 3000)
       return;
     }
 
@@ -83,6 +86,7 @@ export default function EditSus({ addUserSuspension, userSuspension, setSelected
             navigate('/dashboard');
           }}>Back</button>
         </div>
+        {submitError && <p className="error-wait-message">Please fill out all forms before submitting</p>}
         {fetchCount !== fetchPageNumber && 
         <p className="fetch-ride-wait-message">
         Please wait for data to load.<br/>
