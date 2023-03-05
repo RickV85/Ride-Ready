@@ -10,6 +10,7 @@ import {
   cleanRideData,
 } from "../../util";
 import { getUserActivities } from "../../APICalls";
+import PropTypes from "prop-types";
 
 export default function EditSus({
   addUserSuspension,
@@ -24,7 +25,7 @@ export default function EditSus({
   setPagesFetched,
   userBikes,
   addUserBikes,
-  changeErrorMessage
+  changeErrorMessage,
 }) {
   const [newRebuildDate, setNewRebuildDate] = useState("");
   const [editSusIndex, setEditSusIndex] = useState(null);
@@ -37,27 +38,29 @@ export default function EditSus({
 
   useEffect(() => {
     if (!userBikes) {
-      const loadedBikes = JSON.parse((localStorage.getItem('userBikes')))
-      addUserBikes(loadedBikes)
+      const loadedBikes = JSON.parse(localStorage.getItem("userBikes"));
+      addUserBikes(loadedBikes);
     }
     if (!userRides) {
-      const loadedRides = JSON.parse((localStorage.getItem('userRides')))
-      addUserRides(loadedRides)
+      const loadedRides = JSON.parse(localStorage.getItem("userRides"));
+      addUserRides(loadedRides);
     }
     if (!userAccessToken) {
-      const loadedToken = JSON.parse((localStorage.getItem('userAccessToken')))
-      addAccessToken(loadedToken)
+      const loadedToken = JSON.parse(localStorage.getItem("userAccessToken"));
+      addAccessToken(loadedToken);
     }
     if (!selectedSuspension) {
-      const loadedSelection = JSON.parse((localStorage.getItem('selectedSuspension')))
-      setSelectedSuspension(loadedSelection)
+      const loadedSelection = JSON.parse(
+        localStorage.getItem("selectedSuspension")
+      );
+      setSelectedSuspension(loadedSelection);
     }
     if (!userSuspension) {
-      const loadedSus = JSON.parse(localStorage.getItem('userSuspension'));
+      const loadedSus = JSON.parse(localStorage.getItem("userSuspension"));
       addUserSuspension(loadedSus);
     }
     // eslint-disable-next-line
-  }, [])
+  }, []);
 
   useEffect(() => {
     if (!(selectedSuspension || userSuspension)) return;
@@ -77,19 +80,24 @@ export default function EditSus({
       if (fetchCount > 10) return;
       setSubmitDisabled(true);
       setFetchPageNumber(fetchPageNumber + 1);
-      getUserActivities(fetchPageNumber, userAccessToken).then((activities) => {
-        const rideActivities = filterRideActivities(activities);
-        const cleanedRides = cleanRideData(rideActivities);
-        if (cleanedRides) {
-          addUserRides([...userRides, ...cleanedRides]);
-          window.localStorage.setItem('userRides', JSON.stringify([...userRides, ...cleanedRides]))
-        }
-        setFetchCount(fetchCount + 1);
-        setSubmitDisabled(false);
-      }).catch(() => {
-        changeErrorMessage(`An error occurred while fetching your rides. 
+      getUserActivities(fetchPageNumber, userAccessToken)
+        .then((activities) => {
+          const rideActivities = filterRideActivities(activities);
+          const cleanedRides = cleanRideData(rideActivities);
+          if (cleanedRides) {
+            addUserRides([...userRides, ...cleanedRides]);
+            window.localStorage.setItem(
+              "userRides",
+              JSON.stringify([...userRides, ...cleanedRides])
+            );
+          }
+          setFetchCount(fetchCount + 1);
+          setSubmitDisabled(false);
+        })
+        .catch(() => {
+          changeErrorMessage(`An error occurred while fetching your rides. 
       Please return to the home page and try logging in again.`);
-      });
+        });
     }
     // eslint-disable-next-line
   }, [newRebuildDate, userRides]);
@@ -113,7 +121,10 @@ export default function EditSus({
     let newUserSusArr = userSuspension;
     newUserSusArr.splice(editSusIndex, 1, modifiedSus);
     addUserSuspension(newUserSusArr);
-    window.localStorage.setItem('userSuspension', JSON.stringify(newUserSusArr))
+    window.localStorage.setItem(
+      "userSuspension",
+      JSON.stringify(newUserSusArr)
+    );
 
     setSelectedSuspension(null);
     setPagesFetched(fetchCount);
@@ -171,3 +182,19 @@ export default function EditSus({
     </section>
   );
 }
+
+EditSus.propTypes = {
+  addUserSuspension: PropTypes.func,
+  userSuspension: PropTypes.array,
+  setSelectedSuspension: PropTypes.func,
+  selectedSuspension: PropTypes.string,
+  userAccessToken: PropTypes.string,
+  addAccessToken: PropTypes.func,
+  userRides: PropTypes.array,
+  addUserRides: PropTypes.func,
+  pagesFetched: PropTypes.number,
+  setPagesFetched: PropTypes.func,
+  userBikes: PropTypes.array,
+  addUserBikes: PropTypes.func,
+  changeErrorMessage: PropTypes.func,
+};

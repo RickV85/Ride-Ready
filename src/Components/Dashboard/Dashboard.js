@@ -4,25 +4,30 @@ import Container from "../Container/Container";
 import "./Dashboard.css";
 import PropTypes from "prop-types";
 
-export default function Dashboard({ userSuspension, addUserSuspension, setSelectedSuspension, userBikes, addUserBikes }) {
-
+export default function Dashboard({
+  userSuspension,
+  addUserSuspension,
+  setSelectedSuspension,
+  userBikes,
+  addUserBikes,
+}) {
   useEffect(() => {
     if (userBikes === null) {
-      const loadedBikes = JSON.parse(localStorage.getItem('userBikes'))
+      const loadedBikes = JSON.parse(localStorage.getItem("userBikes"));
       addUserBikes(loadedBikes);
     }
     if (userSuspension === null) {
-      const loadedSus = JSON.parse(localStorage.getItem('userSuspension'));
+      const loadedSus = JSON.parse(localStorage.getItem("userSuspension"));
       addUserSuspension(loadedSus);
     }
-    // eslint-disable-next-line 
-  }, [])
+    // eslint-disable-next-line
+  }, []);
 
   useEffect(() => {
     if (userBikes !== [] && userBikes) {
-      window.localStorage.setItem('userBikes', JSON.stringify(userBikes))
+      window.localStorage.setItem("userBikes", JSON.stringify(userBikes));
     }
-  }, [userBikes])
+  }, [userBikes]);
 
   return (
     <section className="dashboard">
@@ -40,4 +45,8 @@ export default function Dashboard({ userSuspension, addUserSuspension, setSelect
 
 Dashboard.propTypes = {
   userSuspension: PropTypes.array,
+  addUserSuspension: PropTypes.func,
+  setSelectedSuspension: PropTypes.func,
+  userBikes: PropTypes.array,
+  addUserBikes: PropTypes.func,
 };

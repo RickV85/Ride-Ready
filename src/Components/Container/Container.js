@@ -39,4 +39,5 @@ export default function Container({ userSuspension, setSelectedSuspension }) {
 
 Container.propTypes = {
   userSuspension: PropTypes.array,
+  setSelectedSuspension: PropTypes.func
 };

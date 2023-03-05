@@ -22,7 +22,7 @@ export default function NewPartForm({
   addUserRides,
   pagesFetched,
   setPagesFetched,
-  changeErrorMessage
+  changeErrorMessage,
 }) {
   // eslint-disable-next-line
   const [bikeOptions, setBikeOptions] = useState(userBikes);
@@ -132,9 +132,7 @@ export default function NewPartForm({
     );
     let selectedBikeName;
     if (bikeOptions) {
-      selectedBikeName = bikeOptions.find(
-        (bike) => bike.id === selectedBike
-      );
+      selectedBikeName = bikeOptions.find((bike) => bike.id === selectedBike);
     } else {
       selectedBikeName = null;
     }
@@ -234,5 +232,14 @@ export default function NewPartForm({
 
 NewPartForm.propTypes = {
   userBikes: PropTypes.array,
+  addUserBikes: PropTypes.func,
   userRides: PropTypes.array,
+  addUserSuspension: PropTypes.func,
+  userSuspension: PropTypes.array,
+  userAccessToken: PropTypes.string,
+  addAccessToken: PropTypes.func,
+  addUserRides: PropTypes.func,
+  pagesFetched: PropTypes.number,
+  setPagesFetched: PropTypes.func,
+  changeErrorMessage: PropTypes.func,
 };

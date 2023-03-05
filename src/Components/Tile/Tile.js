@@ -25,18 +25,28 @@ export default function Tile({ susDetails, setSelectedSuspension, id }) {
       </a>
       <div className="tile-button-section">
         <NavLink to={"/dashboard/edit"}>
-          <button onClick={() => {
-            setSelectedSuspension(id)
-            window.localStorage.setItem('selectedSuspension', JSON.stringify(id))
-          }}>
+          <button
+            onClick={() => {
+              setSelectedSuspension(id);
+              window.localStorage.setItem(
+                "selectedSuspension",
+                JSON.stringify(id)
+              );
+            }}
+          >
             Update service date
           </button>
         </NavLink>
         <NavLink to={"/dashboard/delete"}>
-          <button onClick={() => {
-            setSelectedSuspension(id)
-            window.localStorage.setItem('selectedSuspension', JSON.stringify(id))
-          }}>
+          <button
+            onClick={() => {
+              setSelectedSuspension(id);
+              window.localStorage.setItem(
+                "selectedSuspension",
+                JSON.stringify(id)
+              );
+            }}
+          >
             Delete suspension
           </button>
         </NavLink>
@@ -47,4 +57,6 @@ export default function Tile({ susDetails, setSelectedSuspension, id }) {
 
 Tile.propTypes = {
   susDetails: PropTypes.object,
+  setSelectedSuspension: PropTypes.func, 
+  id: PropTypes.string
 };

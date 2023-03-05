@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./DeleteSus.css";
 import { useNavigate } from "react-router-dom";
 import { findSusIndexByID } from "../../util";
+import PropTypes from "prop-types";
 
 export default function DeleteSus({
   addUserSuspension,
@@ -15,15 +16,17 @@ export default function DeleteSus({
 
   useEffect(() => {
     if (!selectedSuspension) {
-      const loadedSelection = JSON.parse((localStorage.getItem('selectedSuspension')))
-      setSelectedSuspension(loadedSelection)
+      const loadedSelection = JSON.parse(
+        localStorage.getItem("selectedSuspension")
+      );
+      setSelectedSuspension(loadedSelection);
     }
     if (!userSuspension) {
-      const loadedSus = JSON.parse(localStorage.getItem('userSuspension'));
+      const loadedSus = JSON.parse(localStorage.getItem("userSuspension"));
       addUserSuspension(loadedSus);
     }
     // eslint-disable-next-line
-  }, [])
+  }, []);
 
   useEffect(() => {
     if (!(selectedSuspension || userSuspension)) return;
@@ -37,7 +40,10 @@ export default function DeleteSus({
     let newUserSusArr = userSuspension;
     newUserSusArr.splice(deleteSusIndex, 1);
     addUserSuspension(newUserSusArr);
-    window.localStorage.setItem('userSuspension', JSON.stringify(newUserSusArr));
+    window.localStorage.setItem(
+      "userSuspension",
+      JSON.stringify(newUserSusArr)
+    );
     setSelectedSuspension(null);
     navigate("/dashboard");
   };
@@ -66,4 +72,11 @@ export default function DeleteSus({
       <div className="delete-spacer"></div>
     </section>
   );
+}
+
+DeleteSus.propTypes = { 
+  addUserSuspension: PropTypes.func,
+  userSuspension: PropTypes.array,
+  setSelectedSuspension: PropTypes.func,
+  selectedSuspension: PropTypes.string,
 }
