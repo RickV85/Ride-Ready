@@ -21,5 +21,6 @@
 }
 
 .edit-section-buttons {
-  @include centered(row, center)
+  @include centered(row, space-between);
+  width: 50vw;
 }

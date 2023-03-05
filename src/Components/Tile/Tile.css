@@ -32,8 +32,10 @@
 .tile-button-section {
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
+  width: 72vmin;
+  height: 9vh;
 }
 
 @media only screen and (min-width: 860px) {

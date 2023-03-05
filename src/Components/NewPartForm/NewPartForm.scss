@@ -25,7 +25,9 @@
 }
 
 .newpartform-button-section {
-  @include centered(row, center)
+  @include centered(row, space-between);
+  width: 50vw;
+  height: 15vh;
 }
 
 .error-wait-message {
