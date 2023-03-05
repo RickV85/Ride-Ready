@@ -30,6 +30,7 @@
 .delete-section-buttons {
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
+  width: 50vw;
 }/*# sourceMappingURL=DeleteSus.css.map */

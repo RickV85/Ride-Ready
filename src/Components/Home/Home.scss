@@ -3,7 +3,7 @@
 .site-logo {
   @include logoText;
   font-size: 8vh;
-  margin-top: 4vh;
+  margin-top: 3vh;
 }
 
 .home-page{
@@ -14,4 +14,12 @@
 
 .tag-line {
   color: $lightBlue;
+  margin-bottom: 20px;
+  font-size: 20px;
+}
+
+@media only screen and (min-width: 860px) {
+  .site-logo {
+    font-size: 80px;
+  }
 }

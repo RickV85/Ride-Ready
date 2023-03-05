@@ -32,5 +32,14 @@
 }
 
 .tile-button-section {
-  @include centered(row, center)
+  @include centered(row, space-between);
+  
+  width: 285px;
+  height: 9vh;
+}
+
+@media only screen and (min-width: 860px) {
+  .tile {
+    width: 775px;
+  }
 }

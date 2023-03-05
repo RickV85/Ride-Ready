@@ -66,6 +66,6 @@ describe('EditSus', () => {
     cy.get('input').type('2022-10-10')
     cy.get('button').eq(0).click()
 
-    cy.get('p').should('have.text', 'Last serviced: Oct 10, 2022')
+    cy.get('p').eq(0).should('have.text', 'Last serviced: Oct 10, 2022')
   })
 })

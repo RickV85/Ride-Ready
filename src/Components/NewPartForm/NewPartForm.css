@@ -30,8 +30,10 @@
 .newpartform-button-section {
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
+  width: 50vw;
+  height: 15vh;
 }
 
 .error-wait-message {

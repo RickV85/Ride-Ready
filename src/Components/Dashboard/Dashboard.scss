@@ -5,3 +5,7 @@
   width: 100vw;
   @include centered(column, flex-start)
 }
+
+#dash-add-sus {
+  transform: translateY(19px);
+}

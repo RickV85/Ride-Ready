@@ -5,4 +5,8 @@
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
+}
+
+#dash-add-sus {
+  transform: translateY(19px);
 }/*# sourceMappingURL=Dashboard.css.map */

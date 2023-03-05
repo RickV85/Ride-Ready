@@ -36,6 +36,14 @@ p {
   text-align: center;
 }
 
+input, select {
+  border-radius: 5px;
+}
+
+a:hover {
+  color: #F26419;
+}
+
 button {
   background-color: #33658A;
   color: #F6AE2D;
@@ -43,7 +51,6 @@ button {
   border-radius: 10px;
   border: none;
   padding: 10px;
-  margin: 4vmin;
   font-family: "Kalam", cursive;
   cursor: pointer;
   font-size: 18px;
@@ -51,4 +58,10 @@ button {
 
 button:hover {
   box-shadow: 0px 0px 0px 2px #F26419;
+}
+
+@media only screen and (min-width: 860px) {
+  input, select {
+    padding: 1vh 1vw 1vh 1vw;
+  }
 }/*# sourceMappingURL=App.css.map */
