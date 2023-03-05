@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import "./Home.css";
 
 export default function Home() {
-  const clientID = `${process.env.REACT_APP_CLIENT_ID}`;
+  const clientID = `${process.env.REACT_APP_CLIENT_ID_LOCAL}`;
   const redirectUrl = "http://localhost:3000/redirect";
   const scope = "activity:read_all";
 

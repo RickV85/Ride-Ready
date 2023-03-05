@@ -3,8 +3,8 @@ const getAccessToken = (userAuthToken) => {
     method: "POST",
     headers: { "Content-Type": "application/JSON" },
     body: JSON.stringify({
-      client_id: `${process.env.REACT_APP_CLIENT_ID}`,
-      client_secret: `${process.env.REACT_APP_CLIENT_SECRET}`,
+      client_id: `${process.env.REACT_APP_CLIENT_ID_LOCAL}`,
+      client_secret: `${process.env.REACT_APP_CLIENT_SECRET_LOCAL}`,
       code: `${userAuthToken}`,
       grant_type: "authorization_code",
     }),
