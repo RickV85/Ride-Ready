@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
-import './App.css';
-import Home from '../Home/Home';
-import Redirect from '../Redirect/Redirect';
-import Error from '../Error/Error';
-import Dashboard from '../Dashboard/Dashboard'
-import NewPartForm from '../NewPartForm/NewPartForm';
-import EditSus from '../EditSus/EditSus';
-import DeleteSus from '../DeleteSus/DeleteSus';
+import "./App.css";
+import Home from "../Home/Home";
+import Redirect from "../Redirect/Redirect";
+import Error from "../Error/Error";
+import Dashboard from "../Dashboard/Dashboard";
+import NewPartForm from "../NewPartForm/NewPartForm";
+import EditSus from "../EditSus/EditSus";
+import DeleteSus from "../DeleteSus/DeleteSus";
 
 export default function App() {
   const [userAuthToken, setUserAuthToken] = useState(null);
@@ -16,98 +16,117 @@ export default function App() {
   const [userRides, setUserRides] = useState(null);
   const [userSuspension, setUserSuspension] = useState(null);
   const [selectedSuspension, setSelectedSuspension] = useState(null);
-  const [errorMessage, setErrorMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState("");
   const [pagesFetched, setPagesFetched] = useState(1);
   const navigate = useNavigate();
 
   const addAuthToken = (token) => {
     setUserAuthToken(token);
-  }
+  };
 
   const addAccessToken = (token) => {
     setUserAccessToken(token);
-  }
+  };
 
   const addUserBikes = (bikes) => {
     setUserBikes(bikes);
-  }
+  };
 
   const addUserRides = (rides) => {
     setUserRides(rides);
-  }
+  };
 
   const addUserSuspension = (suspension) => {
     setUserSuspension(suspension);
-  }
+  };
 
   const changeErrorMessage = (errorMessage) => {
     setErrorMessage(errorMessage);
-    navigate('/error', { replace: true });
-  }
+    navigate("/error", { replace: true });
+  };
 
   return (
-    <main className='app-background'>
-    <Routes >
-      <Route path='/' element={ <Home /> } />
-      <Route path='/redirect/*' element={ 
-        <Redirect 
-          addAuthToken={addAuthToken} 
-          userAuthToken={userAuthToken} 
-          addAccessToken={addAccessToken} 
-          userAccessToken={userAccessToken} 
-          addUserBikes={addUserBikes} 
-          userBikes={userBikes} 
-          addUserRides={addUserRides} 
-          userRides={userRides} 
-          changeErrorMessage={changeErrorMessage}
-        />}
-      />
-      <Route path='/dashboard' element={ 
-        <Dashboard 
-            userSuspension={userSuspension}
-            setSelectedSuspension={setSelectedSuspension}
-        />} 
-      />
-      <Route path='/dashboard/add-new-part' element={ 
-        <NewPartForm 
-          userAccessToken={userAccessToken} 
-          userBikes={userBikes} 
-          addUserSuspension={addUserSuspension}
-          userSuspension={userSuspension}
-          userRides={userRides}
-          addUserRides={addUserRides}
-          pagesFetched={pagesFetched}
-          setPagesFetched={setPagesFetched}
-        />} 
-      />
-      <Route path='/dashboard/edit' element={ 
-        <EditSus 
-          addUserSuspension={addUserSuspension}
-          userSuspension={userSuspension}
-          setSelectedSuspension={setSelectedSuspension} 
-          selectedSuspension={selectedSuspension} 
-          userAccessToken={userAccessToken}
-          userRides={userRides}
-          addUserRides={addUserRides}
-          pagesFetched={pagesFetched}
-          setPagesFetched={setPagesFetched}
-          userBikes={userBikes}
-        />}
-      />
-      <Route path='/dashboard/delete' element={ <DeleteSus  
-          addUserSuspension={addUserSuspension}
-          userSuspension={userSuspension}
-          setSelectedSuspension={setSelectedSuspension} 
-          selectedSuspension={selectedSuspension}
-        />}
-      />
-      <Route path='/error' element={ 
-        <Error 
-          errorMessage={errorMessage} 
-          changeErrorMessage={changeErrorMessage}
-        />} 
-      />
-    </Routes>
+    <main className="app-background">
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route
+          path="/redirect/*"
+          element={
+            <Redirect
+              addAuthToken={addAuthToken}
+              userAuthToken={userAuthToken}
+              addAccessToken={addAccessToken}
+              userAccessToken={userAccessToken}
+              addUserBikes={addUserBikes}
+              userBikes={userBikes}
+              addUserRides={addUserRides}
+              userRides={userRides}
+              changeErrorMessage={changeErrorMessage}
+            />
+          }
+        />
+        <Route
+          path="/dashboard"
+          element={
+            <Dashboard
+              userSuspension={userSuspension}
+              setSelectedSuspension={setSelectedSuspension}
+            />
+          }
+        />
+        <Route
+          path="/dashboard/add-new-part"
+          element={
+            <NewPartForm
+              userAccessToken={userAccessToken}
+              userBikes={userBikes}
+              addUserSuspension={addUserSuspension}
+              userSuspension={userSuspension}
+              userRides={userRides}
+              addUserRides={addUserRides}
+              pagesFetched={pagesFetched}
+              setPagesFetched={setPagesFetched}
+            />
+          }
+        />
+        <Route
+          path="/dashboard/edit"
+          element={
+            <EditSus
+              addUserSuspension={addUserSuspension}
+              userSuspension={userSuspension}
+              setSelectedSuspension={setSelectedSuspension}
+              selectedSuspension={selectedSuspension}
+              userAccessToken={userAccessToken}
+              userRides={userRides}
+              addUserRides={addUserRides}
+              pagesFetched={pagesFetched}
+              setPagesFetched={setPagesFetched}
+              userBikes={userBikes}
+            />
+          }
+        />
+        <Route
+          path="/dashboard/delete"
+          element={
+            <DeleteSus
+              addUserSuspension={addUserSuspension}
+              userSuspension={userSuspension}
+              setSelectedSuspension={setSelectedSuspension}
+              selectedSuspension={selectedSuspension}
+            />
+          }
+        />
+        <Route
+          path="/error"
+          element={
+            <Error
+              errorMessage={errorMessage}
+              changeErrorMessage={changeErrorMessage}
+            />
+          }
+        />
+      </Routes>
     </main>
   );
 }
