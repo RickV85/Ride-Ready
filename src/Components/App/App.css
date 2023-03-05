@@ -40,6 +40,10 @@ input, select {
   border-radius: 5px;
 }
 
+a:hover {
+  color: #F26419;
+}
+
 button {
   background-color: #33658A;
   color: #F6AE2D;

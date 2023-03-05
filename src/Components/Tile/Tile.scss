@@ -33,7 +33,8 @@
 
 .tile-button-section {
   @include centered(row, space-between);
-  width: 72vmin;
+  
+  width: 285px;
   height: 9vh;
 }
 
