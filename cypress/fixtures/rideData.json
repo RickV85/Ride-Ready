@@ -1,0 +1,42 @@
+[
+  {
+    "id": 8551479095,
+    "ride_duration": 4027,
+    "ride_distance": 9746.3,
+    "ride_date": "2023-02-12T18:32:22Z",
+    "gear_id": "b9082682",
+    "type": "Ride"
+  },
+  {
+    "id": 8522604553,
+    "ride_duration": 1592,
+    "ride_distance": 11453.8,
+    "ride_date": "2023-02-07T19:11:11Z",
+    "gear_id": "b1979857",
+    "type": "Ride"
+  },
+  {
+    "id": 8228820400,
+    "ride_duration": 1661,
+    "ride_distance": 12114.6,
+    "ride_date": "2022-12-09T19:11:22Z",
+    "gear_id": "b1979857",
+    "type": "Ride"
+  },
+  {
+    "id": 8212287876,
+    "ride_duration": 1553,
+    "ride_distance": 11959.5,
+    "ride_date": "2022-12-05T18:59:01Z",
+    "gear_id": "b1979857",
+    "type": "Ride"
+  },
+  {
+    "id": 8182140706,
+    "ride_duration": 2033,
+    "ride_distance": 9722.5,
+    "ride_date": "2022-11-28T19:04:03Z",
+    "gear_id": "b1979857",
+    "type": "Ride"
+  }
+]

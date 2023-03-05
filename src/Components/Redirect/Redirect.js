@@ -16,11 +16,7 @@ export default function Redirect({
   userRides,
   changeErrorMessage
 }) {
-  // const [userAuthToken, setUserAuthToken] = useState('');
-  // const [userAccessToken, setUserAccessToken] = useState('');
-  // const [userRides, setUserRides] = useState([]);
   const [userGear, setUserGear] = useState('');
-  // const [userGearDetails, setUserGearDetails] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -40,6 +36,9 @@ export default function Redirect({
     getAccessToken(userAuthToken)
     .then((data) => {
       addAccessToken(data.access_token);
+    }).catch(() => {
+    changeErrorMessage(`An error occurred while requesting an access token. 
+      Please return to the home page and try logging in again.`)
     })
     // eslint-disable-next-line
   }, [userAuthToken])
@@ -53,6 +52,9 @@ export default function Redirect({
       if (cleanedRides) {
         addUserRides(cleanedRides)
       }
+    }).catch(() => {
+    changeErrorMessage(`An error occurred while fetching your rides. 
+      Please return to the home page and try logging in again.`);
     })
     // eslint-disable-next-line
   }, [userAccessToken])
@@ -64,7 +66,6 @@ export default function Redirect({
   }, [userRides])
 
   useEffect(() => {
-    // console.log(userGear)
     if (!userGear) {
       return;
     } 
@@ -77,7 +78,11 @@ export default function Redirect({
           'brand_name': details.brand_name,
           'model_name': details.model_name
         })
-      })
+      }).catch(() => {
+      changeErrorMessage(`An error occurred while fetching your bike details. 
+        Please return to the home page and try logging in again.`
+      );
+  })
     })
     addUserBikes(fetchedGearDetail)
     // eslint-disable-next-line

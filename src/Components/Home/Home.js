@@ -1,7 +1,7 @@
 import React from "react";
 import './Home.css'
 
-export default function Home () {
+export default function Home() {
   const clientID = `${process.env.REACT_APP_CLIENT_ID}`;
   const redirectUrl = "http://localhost:3000/redirect";
   const scope = "activity:read_all";
