@@ -58,7 +58,6 @@ export default function App() {
               addAccessToken={addAccessToken}
               userAccessToken={userAccessToken}
               addUserBikes={addUserBikes}
-              userBikes={userBikes}
               addUserRides={addUserRides}
               userRides={userRides}
               changeErrorMessage={changeErrorMessage}
