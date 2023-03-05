@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import './Home.css'
 
 export default function Home() {
@@ -8,7 +8,11 @@ export default function Home() {
 
   const loginUser = () => {
     window.location = `http://www.strava.com/oauth/authorize?client_id=${clientID}&response_type=code&redirect_uri=${redirectUrl}/exchange_token&approval_prompt=auto&scope=${scope}`;
-};
+  };
+
+  // useEffect(() => {
+  //   window.localStorage.removeItem()
+  // }, [])
 
   return (
     <section className='home-page'>

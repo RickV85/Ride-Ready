@@ -50,7 +50,7 @@ export const calculateRebuildLife = (newSus, rebuildDate, userRides, onBike, bik
   let susBike;
   let ridesOnBike;
   let rideTimeSinceLastRebuild;
-  if (onBike !== '0' && bikeOptions) {
+  if (onBike.startsWith('b') && bikeOptions) {
     susBike = bikeOptions.find(bike => bike.id === onBike);
     ridesOnBike = userRides.filter(ride => ride.gear_id === susBike.id);
   }

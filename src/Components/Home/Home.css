@@ -17,4 +17,10 @@
 
 .tag-line {
   color: #86BBD8;
+}
+
+@media only screen and (min-width: 860px) {
+  .site-logo {
+    font-size: 80px;
+  }
 }/*# sourceMappingURL=Home.css.map */

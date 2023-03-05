@@ -13,3 +13,9 @@
   @include bodyText(18px);
   margin-top: 10px;
 }
+
+@media only screen and (min-width: 860px) {
+  .container {
+    width: 800px;
+  }
+}

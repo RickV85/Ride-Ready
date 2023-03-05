@@ -56,7 +56,6 @@ export default function EditSus({ addUserSuspension, userSuspension, setSelected
     }
 
     const modifiedSus = editSusDetails;
-    console.log('modifiedSus', modifiedSus)
     modifiedSus.rebuildDate = newRebuildDate;
     modifiedSus.rebuildLife = calculateRebuildLife(modifiedSus.susData.id, newRebuildDate, userRides, modifiedSus.onBike.id, userBikes);
     let newUserSusArr = userSuspension;
@@ -88,7 +87,7 @@ export default function EditSus({ addUserSuspension, userSuspension, setSelected
         </div>
         {submitError && <p className="error-wait-message">Please fill out all forms before submitting</p>}
         {fetchCount !== fetchPageNumber && 
-        <p className="fetch-ride-wait-message">
+        <p className="error-wait-message">
         Please wait for data to load.<br/>
         This could take up to 15 seconds</p>
       }

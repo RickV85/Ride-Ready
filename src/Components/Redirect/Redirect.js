@@ -62,6 +62,10 @@ export default function Redirect({
   useEffect(() => {
     if (!userRides) return;
     setUserGear(getGearIDNumbers(userRides));
+
+    if (getGearIDNumbers(userRides) === []) {
+      navigate('/dashboard', { replace: true })
+    }
     // eslint-disable-next-line
   }, [userRides])
 
@@ -79,21 +83,15 @@ export default function Redirect({
           'model_name': details.model_name
         })
       }).catch(() => {
-      changeErrorMessage(`An error occurred while fetching your bike details. 
+        changeErrorMessage(`An error occurred while fetching your bike details. 
         Please return to the home page and try logging in again.`
-      );
-  })
+        );
+      })
     })
     addUserBikes(fetchedGearDetail)
+    setTimeout(navigate('/dashboard', { replace: true }));
     // eslint-disable-next-line
   }, [userGear])
-  
-  useEffect(() => {
-    if (userBikes) {
-      setTimeout(navigate('/dashboard', { replace: true }), 1000);
-    }
-    // eslint-disable-next-line
-  }, [userBikes])
 
   return (
     <section className="home-page">
