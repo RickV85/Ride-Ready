@@ -1,5 +1,6 @@
 <div align="center">
 
+![icons8-cycling-mountain-bike-100](https://user-images.githubusercontent.com/113707169/223007343-d004f91f-12fa-4ac5-ae3d-8e943e38426b.png)
 
   
 # Ride Ready
@@ -79,10 +80,10 @@ Built in 6 days for a Turing School of Software Mod 3 Showcase project. This req
 ## Preview of App:
 [//]: <> (Provide ONE gif or screenshot of your application - choose the "coolest" piece of functionality to show off.)
 
-
-
+![Screenshot 2023-03-05 at 7 22 04 PM](https://user-images.githubusercontent.com/113707169/223007379-86eccd56-d739-4edc-bf6c-9713e8abfba4.png)
 
   
+![Screenshot 2023-03-05 at 7 22 31 PM](https://user-images.githubusercontent.com/113707169/223007381-4ac9b181-740d-413a-8adc-ba058d55826b.png)
 
 ---
 
