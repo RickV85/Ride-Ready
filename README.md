@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="https://user-images.githubusercontent.com/113261334/221386582-8a049597-9571-49ce-b800-ce30b7f3bd69.png" width="120" height="120">
+
   
 # Ride Ready
   
