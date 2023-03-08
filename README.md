@@ -80,6 +80,10 @@ Built in 6 days for a Turing School of Software Mod 3 Showcase project. This req
 ## Preview of App:
 [//]: <> (Provide ONE gif or screenshot of your application - choose the "coolest" piece of functionality to show off.)
 
+
+https://user-images.githubusercontent.com/113707169/223781903-055d770d-235e-49a7-82ac-e2bf834202df.mp4
+
+
 ![Screenshot 2023-03-05 at 7 22 04 PM](https://user-images.githubusercontent.com/113707169/223007379-86eccd56-d739-4edc-bf6c-9713e8abfba4.png)
 
   
