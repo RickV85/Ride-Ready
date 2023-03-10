@@ -13,13 +13,13 @@ import { useNavigate } from "react-router-dom";
 
 export default function NewPartForm({
   userBikes,
-  addUserBikes,
+  setUserBikes,
   userRides,
-  addUserSuspension,
+  setUserSuspension,
   userSuspension,
   userAccessToken,
-  addAccessToken,
-  addUserRides,
+  setUserAccessToken,
+  setUserRides,
   pagesFetched,
   setPagesFetched,
   changeErrorMessage,
@@ -40,15 +40,15 @@ export default function NewPartForm({
     if (!userBikes) {
       const loadedBikes = JSON.parse(localStorage.getItem("userBikes"));
       setBikeOptions(loadedBikes);
-      addUserBikes(loadedBikes);
+      setUserBikes(loadedBikes);
     }
     if (!userRides) {
       const loadedRides = JSON.parse(localStorage.getItem("userRides"));
-      addUserRides(loadedRides);
+      setUserRides(loadedRides);
     }
     if (!userAccessToken) {
       const loadedToken = JSON.parse(localStorage.getItem("userAccessToken"));
-      addAccessToken(loadedToken);
+      setUserAccessToken(loadedToken);
     }
     // eslint-disable-next-line
   }, []);
@@ -103,7 +103,7 @@ export default function NewPartForm({
           const rideActivities = filterRideActivities(activities);
           const cleanedRides = cleanRideData(rideActivities);
           if (cleanedRides) {
-            addUserRides([...userRides, ...cleanedRides]);
+            setUserRides([...userRides, ...cleanedRides]);
             window.localStorage.setItem(
               "userRides",
               JSON.stringify([...userRides, ...cleanedRides])
@@ -155,13 +155,13 @@ export default function NewPartForm({
     };
 
     if (userSuspension) {
-      addUserSuspension([...userSuspension, newSuspensionData]);
+      setUserSuspension([...userSuspension, newSuspensionData]);
       window.localStorage.setItem(
         "userSuspension",
         JSON.stringify([...userSuspension, newSuspensionData])
       );
     } else {
-      addUserSuspension([newSuspensionData]);
+      setUserSuspension([newSuspensionData]);
       window.localStorage.setItem(
         "userSuspension",
         JSON.stringify([newSuspensionData])
@@ -232,13 +232,13 @@ export default function NewPartForm({
 
 NewPartForm.propTypes = {
   userBikes: PropTypes.array,
-  addUserBikes: PropTypes.func,
+  setUserBikes: PropTypes.func,
   userRides: PropTypes.array,
-  addUserSuspension: PropTypes.func,
+  setUserSuspension: PropTypes.func,
   userSuspension: PropTypes.array,
   userAccessToken: PropTypes.string,
-  addAccessToken: PropTypes.func,
-  addUserRides: PropTypes.func,
+  setUserAccessToken: PropTypes.func,
+  setUserRides: PropTypes.func,
   pagesFetched: PropTypes.number,
   setPagesFetched: PropTypes.func,
   changeErrorMessage: PropTypes.func,

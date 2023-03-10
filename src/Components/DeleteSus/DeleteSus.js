@@ -5,7 +5,7 @@ import { findSusIndexByID } from "../../util";
 import PropTypes from "prop-types";
 
 export default function DeleteSus({
-  addUserSuspension,
+  setUserSuspension,
   userSuspension,
   setSelectedSuspension,
   selectedSuspension,
@@ -23,7 +23,7 @@ export default function DeleteSus({
     }
     if (!userSuspension) {
       const loadedSus = JSON.parse(localStorage.getItem("userSuspension"));
-      addUserSuspension(loadedSus);
+      setUserSuspension(loadedSus);
     }
     // eslint-disable-next-line
   }, []);
@@ -39,7 +39,7 @@ export default function DeleteSus({
   const handleDelete = () => {
     let newUserSusArr = userSuspension;
     newUserSusArr.splice(deleteSusIndex, 1);
-    addUserSuspension(newUserSusArr);
+    setUserSuspension(newUserSusArr);
     window.localStorage.setItem(
       "userSuspension",
       JSON.stringify(newUserSusArr)
@@ -75,7 +75,7 @@ export default function DeleteSus({
 }
 
 DeleteSus.propTypes = { 
-  addUserSuspension: PropTypes.func,
+  setUserSuspension: PropTypes.func,
   userSuspension: PropTypes.array,
   setSelectedSuspension: PropTypes.func,
   selectedSuspension: PropTypes.string,

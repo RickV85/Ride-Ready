@@ -6,19 +6,19 @@ import PropTypes from "prop-types";
 
 export default function Dashboard({
   userSuspension,
-  addUserSuspension,
+  setUserSuspension,
   setSelectedSuspension,
   userBikes,
-  addUserBikes,
+  setUserBikes,
 }) {
   useEffect(() => {
     if (userBikes === null) {
       const loadedBikes = JSON.parse(localStorage.getItem("userBikes"));
-      addUserBikes(loadedBikes);
+      setUserBikes(loadedBikes);
     }
     if (userSuspension === null) {
       const loadedSus = JSON.parse(localStorage.getItem("userSuspension"));
-      addUserSuspension(loadedSus);
+      setUserSuspension(loadedSus);
     }
     // eslint-disable-next-line
   }, []);
@@ -45,8 +45,8 @@ export default function Dashboard({
 
 Dashboard.propTypes = {
   userSuspension: PropTypes.array,
-  addUserSuspension: PropTypes.func,
+  setUserSuspension: PropTypes.func,
   setSelectedSuspension: PropTypes.func,
   userBikes: PropTypes.array,
-  addUserBikes: PropTypes.func,
+  setUserBikes: PropTypes.func,
 };
