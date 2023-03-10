@@ -37,6 +37,16 @@
   height: 9vh;
 }
 
+.rebuild-good {
+  text-shadow: 1px 1px 0px $lightOrange;
+  margin: 3px;
+}
+
+.rebuild-bad {
+  text-shadow: 1px 1px 0px $darkOrange;
+  margin: 3px;
+}
+
 @media only screen and (min-width: 860px) {
   .tile {
     width: 775px;

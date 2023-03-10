@@ -58,7 +58,6 @@ export default function DeleteSus({
           on ${deleteSusDetails.onBike.brand_name} ${deleteSusDetails.onBike.model_name}`}</h3>
         )}
         <div className="delete-section-buttons">
-          <button onClick={() => handleDelete()}>Delete</button>
           <button
             onClick={() => {
               setSelectedSuspension(null);
@@ -67,6 +66,7 @@ export default function DeleteSus({
           >
             Back
           </button>
+          <button onClick={() => handleDelete()}>Delete</button>
         </div>
       </div>
       <div className="delete-spacer"></div>

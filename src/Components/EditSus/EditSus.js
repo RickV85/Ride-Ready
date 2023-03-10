@@ -153,9 +153,6 @@ export default function EditSus({
           />
         </form>
         <div className="edit-section-buttons">
-          <button onClick={() => handleSubmit()} disabled={submitDisabled}>
-            Submit
-          </button>
           <button
             onClick={() => {
               setSelectedSuspension(null);
@@ -163,6 +160,9 @@ export default function EditSus({
             }}
           >
             Back
+          </button>
+          <button onClick={() => handleSubmit()} disabled={submitDisabled}>
+            Submit
           </button>
         </div>
         {submitError && (
