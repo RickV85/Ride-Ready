@@ -1,24 +1,25 @@
 import React, { useEffect } from "react";
-import { NavLink } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Container from "../Container/Container";
 import "./Dashboard.css";
 import PropTypes from "prop-types";
 
 export default function Dashboard({
   userSuspension,
-  addUserSuspension,
+  setUserSuspension,
   setSelectedSuspension,
   userBikes,
-  addUserBikes,
+  setUserBikes,
 }) {
+  const navigate = useNavigate();
   useEffect(() => {
     if (userBikes === null) {
       const loadedBikes = JSON.parse(localStorage.getItem("userBikes"));
-      addUserBikes(loadedBikes);
+      setUserBikes(loadedBikes);
     }
     if (userSuspension === null) {
       const loadedSus = JSON.parse(localStorage.getItem("userSuspension"));
-      addUserSuspension(loadedSus);
+      setUserSuspension(loadedSus);
     }
     // eslint-disable-next-line
   }, []);
@@ -36,17 +37,15 @@ export default function Dashboard({
         userSuspension={userSuspension}
         setSelectedSuspension={setSelectedSuspension}
       />
-      <NavLink className="add-suspension-link" to="add-new-part">
-        <button id="dash-add-sus">Add new suspension</button>
-      </NavLink>
+      <button id="dash-add-sus" onClick={() => navigate('/dashboard/add-new-part')}>Add new suspension</button>
     </section>
   );
 }
 
 Dashboard.propTypes = {
   userSuspension: PropTypes.array,
-  addUserSuspension: PropTypes.func,
+  setUserSuspension: PropTypes.func,
   setSelectedSuspension: PropTypes.func,
   userBikes: PropTypes.array,
-  addUserBikes: PropTypes.func,
+  setUserBikes: PropTypes.func,
 };

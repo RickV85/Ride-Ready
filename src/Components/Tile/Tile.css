@@ -9,7 +9,6 @@
   background-color: #86BBD8;
   border-radius: 10px;
   margin-top: 10px;
-  margin-bottom: 10px;
   padding-top: 10px;
   padding-bottom: 10px;
 }
@@ -36,6 +35,16 @@
   align-items: center;
   width: 285px;
   height: 9vh;
+}
+
+.rebuild-good {
+  text-shadow: 1px 1px 0px #F6AE2D;
+  margin: 3px;
+}
+
+.rebuild-bad {
+  text-shadow: 1px 1px 0px #F26419;
+  margin: 3px;
 }
 
 @media only screen and (min-width: 860px) {

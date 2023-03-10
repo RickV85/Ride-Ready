@@ -20,26 +20,6 @@ export default function App() {
   const [pagesFetched, setPagesFetched] = useState(1);
   const navigate = useNavigate();
 
-  const addAuthToken = (token) => {
-    setUserAuthToken(token);
-  };
-
-  const addAccessToken = (token) => {
-    setUserAccessToken(token);
-  };
-
-  const addUserBikes = (bikes) => {
-    setUserBikes(bikes);
-  };
-
-  const addUserRides = (rides) => {
-    setUserRides(rides);
-  };
-
-  const addUserSuspension = (suspension) => {
-    setUserSuspension(suspension);
-  };
-
   const changeErrorMessage = (errorMessage) => {
     setErrorMessage(errorMessage);
     navigate("/error", { replace: true });
@@ -53,12 +33,12 @@ export default function App() {
           path="/redirect/*"
           element={
             <Redirect
-              addAuthToken={addAuthToken}
+              setUserAuthToken={setUserAuthToken}
               userAuthToken={userAuthToken}
-              addAccessToken={addAccessToken}
+              setUserAccessToken={setUserAccessToken}
               userAccessToken={userAccessToken}
-              addUserBikes={addUserBikes}
-              addUserRides={addUserRides}
+              setUserBikes={setUserBikes}
+              setUserRides={setUserRides}
               userRides={userRides}
               changeErrorMessage={changeErrorMessage}
             />
@@ -69,10 +49,10 @@ export default function App() {
           element={
             <Dashboard
               userSuspension={userSuspension}
-              addUserSuspension={addUserSuspension}
+              setUserSuspension={setUserSuspension}
               setSelectedSuspension={setSelectedSuspension}
               userBikes={userBikes}
-              addUserBikes={addUserBikes}
+              setUserBikes={setUserBikes}
             />
           }
         />
@@ -81,13 +61,13 @@ export default function App() {
           element={
             <NewPartForm
               userAccessToken={userAccessToken}
-              addAccessToken={addAccessToken}
+              setUserAccessToken={setUserAccessToken}
               userBikes={userBikes}
-              addUserBikes={addUserBikes}
-              addUserSuspension={addUserSuspension}
+              setUserBikes={setUserBikes}
+              setUserSuspension={setUserSuspension}
               userSuspension={userSuspension}
               userRides={userRides}
-              addUserRides={addUserRides}
+              setUserRides={setUserRides}
               pagesFetched={pagesFetched}
               setPagesFetched={setPagesFetched}
             />
@@ -97,18 +77,18 @@ export default function App() {
           path="/dashboard/edit"
           element={
             <EditSus
-              addUserSuspension={addUserSuspension}
+              setUserSuspension={setUserSuspension}
               userSuspension={userSuspension}
               setSelectedSuspension={setSelectedSuspension}
               selectedSuspension={selectedSuspension}
               userAccessToken={userAccessToken}
-              addAccessToken={addAccessToken}
+              setUserAccessToken={setUserAccessToken}
               userRides={userRides}
-              addUserRides={addUserRides}
+              setUserRides={setUserRides}
               pagesFetched={pagesFetched}
               setPagesFetched={setPagesFetched}
               userBikes={userBikes}
-              addUserBikes={addUserBikes}
+              setUserBikes={setUserBikes}
               changeErrorMessage={changeErrorMessage}
             />
           }
@@ -117,7 +97,7 @@ export default function App() {
           path="/dashboard/delete"
           element={
             <DeleteSus
-              addUserSuspension={addUserSuspension}
+              setUserSuspension={setUserSuspension}
               userSuspension={userSuspension}
               setSelectedSuspension={setSelectedSuspension}
               selectedSuspension={selectedSuspension}

@@ -16,12 +16,12 @@ import "./Redirect.css";
 import PropTypes from "prop-types";
 
 export default function Redirect({
-  addAuthToken,
+  setUserAuthToken,
   userAuthToken,
-  addAccessToken,
+  setUserAccessToken,
   userAccessToken,
-  addUserBikes,
-  addUserRides,
+  setUserBikes,
+  setUserRides,
   userRides,
   changeErrorMessage,
 }) {
@@ -36,7 +36,7 @@ export default function Redirect({
       return;
     }
     const fetchedAuthToken = stripURLForToken(window.location.search);
-    addAuthToken(fetchedAuthToken);
+    setUserAuthToken(fetchedAuthToken);
     // eslint-disable-next-line
   }, []);
 
@@ -44,7 +44,7 @@ export default function Redirect({
     if (!userAuthToken) return;
     getAccessToken(userAuthToken)
       .then((data) => {
-        addAccessToken(data.access_token);
+        setUserAccessToken(data.access_token);
         window.localStorage.setItem(
           "userAccessToken",
           JSON.stringify(data.access_token)
@@ -64,7 +64,7 @@ export default function Redirect({
         const rideActivities = filterRideActivities(activities);
         const cleanedRides = cleanRideData(rideActivities);
         if (cleanedRides) {
-          addUserRides(cleanedRides);
+          setUserRides(cleanedRides);
           window.localStorage.setItem(
             "userRides",
             JSON.stringify(cleanedRides)
@@ -96,7 +96,7 @@ export default function Redirect({
       userGear.map((gearID) => getUserGearDetails(gearID, userAccessToken))
     )
       .then((details) => {
-        addUserBikes(
+        setUserBikes(
           details.map((detail) => ({
             id: detail.id,
             brand_name: detail.brand_name,
@@ -132,12 +132,12 @@ export default function Redirect({
 }
 
 Redirect.propTypes = {
-  addAuthToken: PropTypes.func,
+  setUserAuthToken: PropTypes.func,
   userAuthToken: PropTypes.string,
-  addAccessToken: PropTypes.func,
+  setUserAccessToken: PropTypes.func,
   userAccessToken: PropTypes.string,
-  addUserBikes: PropTypes.func,
-  addUserRides: PropTypes.func,
+  setUserBikes: PropTypes.func,
+  setUserRides: PropTypes.func,
   userRides: PropTypes.array,
   changeErrorMessage: PropTypes.func,
 };

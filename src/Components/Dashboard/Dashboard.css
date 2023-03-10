@@ -1,5 +1,6 @@
 .dashboard {
-  height: 100vh;
+  height: -moz-fit-content;
+  height: fit-content;
   width: 100vw;
   display: flex;
   flex-direction: column;
@@ -8,5 +9,5 @@
 }
 
 #dash-add-sus {
-  transform: translateY(19px);
+  margin: 20px 0px 20px 0px;
 }/*# sourceMappingURL=Dashboard.css.map */

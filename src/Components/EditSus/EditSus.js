@@ -13,18 +13,18 @@ import { getUserActivities } from "../../APICalls";
 import PropTypes from "prop-types";
 
 export default function EditSus({
-  addUserSuspension,
+  setUserSuspension,
   userSuspension,
   setSelectedSuspension,
   selectedSuspension,
   userAccessToken,
-  addAccessToken,
+  setUserAccessToken,
   userRides,
-  addUserRides,
+  setUserRides,
   pagesFetched,
   setPagesFetched,
   userBikes,
-  addUserBikes,
+  setUserBikes,
   changeErrorMessage,
 }) {
   const [newRebuildDate, setNewRebuildDate] = useState("");
@@ -39,15 +39,15 @@ export default function EditSus({
   useEffect(() => {
     if (!userBikes) {
       const loadedBikes = JSON.parse(localStorage.getItem("userBikes"));
-      addUserBikes(loadedBikes);
+      setUserBikes(loadedBikes);
     }
     if (!userRides) {
       const loadedRides = JSON.parse(localStorage.getItem("userRides"));
-      addUserRides(loadedRides);
+      setUserRides(loadedRides);
     }
     if (!userAccessToken) {
       const loadedToken = JSON.parse(localStorage.getItem("userAccessToken"));
-      addAccessToken(loadedToken);
+      setUserAccessToken(loadedToken);
     }
     if (!selectedSuspension) {
       const loadedSelection = JSON.parse(
@@ -57,7 +57,7 @@ export default function EditSus({
     }
     if (!userSuspension) {
       const loadedSus = JSON.parse(localStorage.getItem("userSuspension"));
-      addUserSuspension(loadedSus);
+      setUserSuspension(loadedSus);
     }
     // eslint-disable-next-line
   }, []);
@@ -85,7 +85,7 @@ export default function EditSus({
           const rideActivities = filterRideActivities(activities);
           const cleanedRides = cleanRideData(rideActivities);
           if (cleanedRides) {
-            addUserRides([...userRides, ...cleanedRides]);
+            setUserRides([...userRides, ...cleanedRides]);
             window.localStorage.setItem(
               "userRides",
               JSON.stringify([...userRides, ...cleanedRides])
@@ -120,7 +120,7 @@ export default function EditSus({
     );
     let newUserSusArr = userSuspension;
     newUserSusArr.splice(editSusIndex, 1, modifiedSus);
-    addUserSuspension(newUserSusArr);
+    setUserSuspension(newUserSusArr);
     window.localStorage.setItem(
       "userSuspension",
       JSON.stringify(newUserSusArr)
@@ -153,9 +153,6 @@ export default function EditSus({
           />
         </form>
         <div className="edit-section-buttons">
-          <button onClick={() => handleSubmit()} disabled={submitDisabled}>
-            Submit
-          </button>
           <button
             onClick={() => {
               setSelectedSuspension(null);
@@ -163,6 +160,9 @@ export default function EditSus({
             }}
           >
             Back
+          </button>
+          <button onClick={() => handleSubmit()} disabled={submitDisabled}>
+            Submit
           </button>
         </div>
         {submitError && (
@@ -184,17 +184,17 @@ export default function EditSus({
 }
 
 EditSus.propTypes = {
-  addUserSuspension: PropTypes.func,
+  setUserSuspension: PropTypes.func,
   userSuspension: PropTypes.array,
   setSelectedSuspension: PropTypes.func,
   selectedSuspension: PropTypes.string,
   userAccessToken: PropTypes.string,
-  addAccessToken: PropTypes.func,
+  setUserAccessToken: PropTypes.func,
   userRides: PropTypes.array,
-  addUserRides: PropTypes.func,
+  setUserRides: PropTypes.func,
   pagesFetched: PropTypes.number,
   setPagesFetched: PropTypes.func,
   userBikes: PropTypes.array,
-  addUserBikes: PropTypes.func,
+  setUserBikes: PropTypes.func,
   changeErrorMessage: PropTypes.func,
 };
