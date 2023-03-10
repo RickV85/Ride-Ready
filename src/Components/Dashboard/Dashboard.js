@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { NavLink } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Container from "../Container/Container";
 import "./Dashboard.css";
 import PropTypes from "prop-types";
@@ -11,6 +11,7 @@ export default function Dashboard({
   userBikes,
   setUserBikes,
 }) {
+  const navigate = useNavigate();
   useEffect(() => {
     if (userBikes === null) {
       const loadedBikes = JSON.parse(localStorage.getItem("userBikes"));
@@ -36,9 +37,7 @@ export default function Dashboard({
         userSuspension={userSuspension}
         setSelectedSuspension={setSelectedSuspension}
       />
-      <NavLink className="add-suspension-link" to="add-new-part">
-        <button id="dash-add-sus">Add new suspension</button>
-      </NavLink>
+      <button id="dash-add-sus" onClick={() => navigate('/dashboard/add-new-part')}>Add new suspension</button>
     </section>
   );
 }

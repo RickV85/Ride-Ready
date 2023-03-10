@@ -4,10 +4,11 @@
   justify-content: flex-start;
   align-items: center;
   width: 94vw;
-  height: 70vh;
+  height: -moz-fit-content;
+  height: fit-content;
   background-color: #33658A;
   border-radius: 10px;
-  overflow-y: scroll;
+  padding-bottom: 10px;
 }
 
 .add-new-mesg {

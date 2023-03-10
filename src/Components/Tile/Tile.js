@@ -19,6 +19,7 @@ export default function Tile({ susDetails, setSelectedSuspension, id }) {
       <h2>{susDetails.susData.name}</h2>
       <h3>{bikeDisplayMessage()}</h3>
       <h3>{`${rebuildLifeMessage}% service life remaining`}</h3>
+      <p>You are good to go!</p>
       <p>{`Last serviced: ${moment(susDetails.rebuildDate).format("ll")}`}</p>
       <a href={susDetails.susData.serviceLink}>
         <p>Link to service resource</p>

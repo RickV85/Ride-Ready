@@ -3,10 +3,10 @@
 .container {
   @include centered(column, flex-start);
   width: 94vw;
-  height: 70vh;
+  height: fit-content;
   background-color: $medBlue;
   border-radius: 10px;
-  overflow-y: scroll;
+  padding-bottom: 10px;
 }
 
 .add-new-mesg {
