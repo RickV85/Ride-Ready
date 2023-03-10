@@ -10,19 +10,15 @@ export default function Error({ errorMessage, changeErrorMessage }) {
   useEffect(() => {
     setTimeout(() => {
       changeErrorMessage("");
-    }, 7000);
+    }, 4000);
     setTimeout(() => {
       navigate("/", { replace: true });
-    }, 7000);
+    }, 4000);
     // eslint-disable-next-line
   }, []);
 
   useEffect(() => {
-    if (!errorMessage) {
-      setBadRequest(true)
-    } else {
-      setBadRequest(false)
-    }
+    !errorMessage ? setBadRequest(true) : setBadRequest(false);
     // eslint-disable-next-line
   }, [errorMessage])
 
