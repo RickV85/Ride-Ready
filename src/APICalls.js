@@ -1,10 +1,18 @@
 const getAccessToken = (userAuthToken) => {
+  let clientID = `${process.env.REACT_APP_CLIENT_ID}`;
+  let clientSecret = `${process.env.REACT_APP_CLIENT_SECRET}`;
+
+  if (window.location.href.startsWith('http://localhost:3000/redirect/')) {
+    clientID = `${process.env.REACT_APP_CLIENT_ID_LOCAL}`;
+    clientSecret = `${process.env.REACT_APP_CLIENT_SECRET_LOCAL}`;
+  }
+
   return fetch(`https://www.strava.com/oauth/token`, {
     method: "POST",
     headers: { "Content-Type": "application/JSON" },
     body: JSON.stringify({
-      client_id: `${process.env.REACT_APP_CLIENT_ID_LOCAL}`,
-      client_secret: `${process.env.REACT_APP_CLIENT_SECRET_LOCAL}`,
+      client_id: clientID,
+      client_secret: clientSecret,
       code: `${userAuthToken}`,
       grant_type: "authorization_code",
     }),
